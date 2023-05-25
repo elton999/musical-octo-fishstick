@@ -1,0 +1,20 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:Windows
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+/reference:..\..\Newtonsoft.Json.dll
+/reference:..\..\MonoGame.ContentPipeline.UmbrellaToolsKit.dll
+
+#---------------------------------- Content ---------------------------------#
+
+#begin new.cdb
+/copy:new.cdb
+
