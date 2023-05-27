@@ -21,8 +21,7 @@ namespace Project.Components
         public override void UpdateData(GameTime gameTime)
         {
             var moveValue = _direction * _speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _actor.moveX(moveValue.X);
-            _actor.moveY(moveValue.Y);
+            _actor.Velocity.X = moveValue.X;
 
             base.UpdateData(gameTime);
         }

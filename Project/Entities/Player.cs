@@ -10,11 +10,10 @@ namespace Project.Entities
     {
         private AsepriteAnimation _animation;
 
-        public float Speed = 30f;
+        public float Speed = 800f;
 
         public override void Start()
         {
-            var movementComponent = new MovementComponent(this, Speed);
 
             tag = "Player";
 
@@ -25,6 +24,7 @@ namespace Project.Entities
 
             size = new Point(16, 16);
 
+            var movementComponent = new MovementComponent(this, Speed);
             AddComponent(new InputMovementComponent(movementComponent));
             AddComponent(movementComponent);
             AddComponent(new WalkAnimationComponent(this, _animation));

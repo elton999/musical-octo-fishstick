@@ -40,7 +40,13 @@ namespace Project
             var scene = _gameManagement.SceneManagement.MainScene;
 
             var player = new Player();
+            var ground = new UmbrellaToolsKit.Collision.Solid();
+            ground.size = new Point(140, 10);
+            ground.Position = new Vector2(0, 50);
+
             scene.AddGameObject(player, Layers.PLAYER);
+            scene.AddGameObject(ground);
+
         }
 
         protected override void Update(GameTime gameTime)

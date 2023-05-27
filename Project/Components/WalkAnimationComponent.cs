@@ -1,40 +1,43 @@
 using UmbrellaToolsKit;
 using UmbrellaToolsKit.Sprite;
+using UmbrellaToolsKit.Collision;
 using Microsoft.Xna.Framework;
 
 namespace Project.Components
 {
     public class WalkAnimationComponent : Component
     {
+        private Actor _actor;
         private AsepriteAnimation _animation;
-        private GameObject _gameObject;
 
         private string _idleAnimation = "idle";
         private string _walkAnimation = "walk";
+        private string _currentAnimation;
 
         private Vector2 _lastPosition;
 
-        public WalkAnimationComponent(GameObject gameObject, AsepriteAnimation animation)
+        public WalkAnimationComponent(Actor actor, AsepriteAnimation animation)
         {
             _animation = animation;
-            _gameObject = gameObject;
+            _actor = actor;
 
-            _lastPosition = gameObject.Position;
+            _currentAnimation = _idleAnimation;
         }
 
         public override void Update(GameTime gameTime)
         {
-            var direction = _gameObject.Position - _lastPosition;
-            string currentAnimation = _idleAnimation;
+            _animation.Play(gameTime, _currentAnimation, AsepriteAnimation.AnimationDirection.LOOP);
 
-            if (direction.Length() > 0) currentAnimation = _walkAnimation;
-
-            _animation.Play(gameTime, currentAnimation, AsepriteAnimation.AnimationDirection.LOOP);
-
+            _actor.Body = _animation.Body;
             base.Update(gameTime);
+        }
 
-            _gameObject.Body = _animation.Body;
-            _lastPosition = _gameObject.Position;
+        public override void UpdateData(GameTime gameTime)
+        {
+            if (_actor.Velocity.X != 0.0f) _currentAnimation = _walkAnimation;
+            else _currentAnimation = _idleAnimation;
+
+            base.UpdateData(gameTime);
         }
     }
 }
