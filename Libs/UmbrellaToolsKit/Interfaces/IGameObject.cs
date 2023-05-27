@@ -12,6 +12,7 @@ namespace UmbrellaToolsKit.Interfaces
         Scene Scene { get; set; }
         string Tag { get; set; }
 
+        void Start();
         void OnVisible();
         void OnInvisible();
         void DrawBeforeScene(SpriteBatch spriteBatch);

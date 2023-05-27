@@ -47,9 +47,11 @@ namespace UmbrellaToolsKit
             SortLayers.Add(Backgrounds);
         }
 
-        public void AddGameObject(IGameObject gameObject, Layers layer)
+        public void AddGameObject(IGameObject gameObject, Layers layer = Layers.MIDDLEGROUND)
         {
             gameObject.Scene = this;
+            gameObject.Start();
+
             switch (layer)
             {
                 case Layers.PLAYER:
