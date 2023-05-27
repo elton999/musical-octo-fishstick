@@ -10,7 +10,8 @@ namespace Project.Entities
     {
         private AsepriteAnimation _animation;
 
-        public float Speed = 800f;
+        public float Speed = 80f;
+        public float JumpForce = 250f;
 
         public override void Start()
         {
@@ -22,12 +23,15 @@ namespace Project.Entities
             _animation = new AsepriteAnimation(asepriteAnimation);
 
             size = new Point(16, 16);
+            GravityScale = 20f;
+            MaxVelocity = Gravity2D.Length() * GravityScale;
 
             var movementComponent = new MovementComponent(this, Speed);
             AddComponent(new InputMovementComponent(movementComponent));
             AddComponent(movementComponent);
             AddComponent(new RevertSpriteByVelocityComponent(this));
             AddComponent(new WalkAnimationComponent(this, _animation));
+            AddComponent(new JumpComponent(this, JumpForce));
 
             base.Start();
         }

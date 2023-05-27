@@ -17,7 +17,7 @@ namespace UmbrellaToolsKit.Collision
         public override void UpdateData(GameTime gameTime)
         {
             base.UpdateData(gameTime);
-            Gravity((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            Gravity((float)gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         public int Right { get => (int)(Position.X + size.X); }
@@ -57,6 +57,7 @@ namespace UmbrellaToolsKit.Collision
         public void Gravity(float deltaTime)
         {
             Velocity += ((Gravity2D * GravityScale) * deltaTime);
+
             float v = Velocity.Length();
             if (v > MaxVelocity)
             {
@@ -64,6 +65,7 @@ namespace UmbrellaToolsKit.Collision
                 Velocity.X = Velocity.X * vs;
                 Velocity.Y = Velocity.Y * vs;
             }
+
             moveX(Velocity.X * deltaTime);
             moveY(Velocity.Y * deltaTime);
         }
@@ -84,12 +86,6 @@ namespace UmbrellaToolsKit.Collision
                 Vector2 _position = new Vector2(Position.X + sign, Position.Y);
                 if (!collideAt(Scene.AllSolids, _position) || AnyCollisionRamps())
                 {
-                    if (EdgesIsCollision[EDGES.BOTTOM_RIGHT] && (sign > 0 || Gravity2D.Y == 0))
-                        Position = Position + Vector2.UnitY * -sign;
-
-                    if (EdgesIsCollision[EDGES.BOTTOM_LEFT] && (sign < 0 || Gravity2D.Y == 0))
-                        Position = Position + Vector2.UnitY * sign;
-
                     Position = Position + Vector2.UnitX * sign;
                     move -= sign;
                 }
