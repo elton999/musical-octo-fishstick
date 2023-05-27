@@ -13,6 +13,7 @@ namespace UmbrellaToolsKit
         private IComponent _components;
         private bool _removeFromScene = false;
         private Vector2 _position = Vector2.Zero;
+        private Scene _scene;
 
         public IComponent Components { get => _components; set => _components = value; }
         public bool RemoveFromScene { get => _removeFromScene; set => _removeFromScene = value; }
@@ -29,10 +30,10 @@ namespace UmbrellaToolsKit
         public float Transparent = 1f;
 
         public string tag = "gameObject";
-        public string Tag { get=> tag; set => tag = value; }
+        public string Tag { get => tag; set => tag = value; }
 
         public ContentManager Content;
-        public Scene Scene;
+        public Scene Scene { get => _scene; set => _scene = value; }
         public dynamic Values;
         public List<Vector2> Nodes;
 
@@ -54,8 +55,17 @@ namespace UmbrellaToolsKit
         public virtual void Start() { }
         public virtual void OnVisible() { }
         public virtual void OnInvisible() { }
-        public virtual void Update(GameTime gameTime) => Components.Update(gameTime);
-        public virtual void UpdateData(GameTime gameTime) => Components.UpdateData(gameTime);
+
+        public virtual void Update(GameTime gameTime)
+        {
+            if (Components != null) Components.Update(gameTime);
+        }
+
+        public virtual void UpdateData(GameTime gameTime)
+        {
+            if (Components != null) Components.UpdateData(gameTime);
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             BeginDraw(spriteBatch, true);
