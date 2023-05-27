@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project.Entities;
 
 namespace Project
 {
@@ -36,6 +37,10 @@ namespace Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _assetManagement = new AssetManagement();
+            var scene = _gameManagement.SceneManagement.MainScene;
+
+            var player = new Player();
+            scene.AddGameObject(player, Layers.PLAYER);
         }
 
         protected override void Update(GameTime gameTime)
