@@ -18,5 +18,6 @@
     <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\MovementComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\InputMovementComponent.cs" />
   </ItemGroup>
 </Project>
