@@ -7,6 +7,13 @@ namespace UmbrellaToolsKit.Collision
     public class Actor : GameObject
     {
         public bool active = true;
+
+        public override void Start()
+        {
+            Scene.AllActors.Add(this);
+            base.Start();
+        }
+
         public override void UpdateData(GameTime gameTime)
         {
             base.UpdateData(gameTime);
