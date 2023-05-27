@@ -17,5 +17,7 @@ namespace UmbrellaToolsKit.Interfaces
         void OnInvisible();
         void DrawBeforeScene(SpriteBatch spriteBatch);
         void Destroy();
+
+        void AddComponent(IComponent component);
     }
 }

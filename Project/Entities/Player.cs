@@ -2,11 +2,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using UmbrellaToolsKit.Sprite;
+using Project.Components;
 
 namespace Project.Entities
 {
     public class Player : Square
     {
+        private MovementComponent _movementComponent;
         public float Speed = 30f;
 
         public override void Start()
@@ -14,6 +16,9 @@ namespace Project.Entities
             SquareColor = Color.Red;
             size = new Point(16, 16);
             base.Start();
+
+            _movementComponent = new MovementComponent(this, Speed);
+            AddComponent(_movementComponent);
         }
 
         public override void Update(GameTime gameTime)
@@ -28,7 +33,9 @@ namespace Project.Entities
             bool down = Keyboard.GetState().IsKeyDown(Keys.Down);
             direction.Y = up ? -1 : down ? 1 : 0;
 
-            Position += direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _movementComponent.AddDirection(direction);
+
+            base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

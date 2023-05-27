@@ -84,6 +84,12 @@ namespace UmbrellaToolsKit
         public virtual void OnMouseOver() { }
         public virtual void Destroy() => RemoveFromScene = true;
 
+        public void AddComponent(IComponent component)
+        {
+            if (_components != null) _components.Add(component);
+            else _components = component;
+        }
+
         public virtual void restart() { }
 
         public void DrawSprite(SpriteBatch spriteBatch)
