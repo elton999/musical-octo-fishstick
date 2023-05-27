@@ -79,8 +79,8 @@ namespace UmbrellaToolsKit
 
         #region Setting Scene
         //Sizes
-        private int Width = 426;
-        private int Height = 240;
+        private int Width = 160;
+        private int Height = 144;
         public GraphicsDevice ScreenGraphicsDevice;
         public ContentManager Content;
 
