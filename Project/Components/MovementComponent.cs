@@ -1,28 +1,30 @@
 using Microsoft.Xna.Framework;
 using UmbrellaToolsKit;
-using UmbrellaToolsKit.Interfaces;
+using UmbrellaToolsKit.Collision;
 
 namespace Project.Components
 {
     public class MovementComponent : Component
     {
-        private IGameObject _gameObject;
+        private Actor _actor;
         private float _speed;
         private Vector2 _direction = Vector2.Zero;
 
-        public MovementComponent(GameObject gameObject, float speed)
+        public MovementComponent(Actor actor, float speed)
         {
-            _gameObject = gameObject;
+            _actor = actor;
             _speed = speed;
         }
 
         public void AddDirection(Vector2 direction) => _direction = direction;
 
-        public override void Update(GameTime gameTime)
+        public override void UpdateData(GameTime gameTime)
         {
-            _gameObject.Position = _gameObject.Position + _direction * _speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            base.Update(gameTime);
+            var moveValue = _direction * _speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _actor.moveX(moveValue.X);
+            _actor.moveY(moveValue.Y);
+
+            base.UpdateData(gameTime);
         }
     }
 }
-
