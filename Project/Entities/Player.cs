@@ -14,7 +14,6 @@ namespace Project.Entities
 
         public override void Start()
         {
-
             tag = "Player";
 
             Sprite = Scene.Content.Load<Texture2D>("Sprites/player");
@@ -27,6 +26,7 @@ namespace Project.Entities
             var movementComponent = new MovementComponent(this, Speed);
             AddComponent(new InputMovementComponent(movementComponent));
             AddComponent(movementComponent);
+            AddComponent(new RevertSpriteByVelocityComponent(this));
             AddComponent(new WalkAnimationComponent(this, _animation));
 
             base.Start();

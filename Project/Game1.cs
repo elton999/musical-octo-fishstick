@@ -46,7 +46,6 @@ namespace Project
 
             scene.AddGameObject(player, Layers.PLAYER);
             scene.AddGameObject(ground);
-
         }
 
         protected override void Update(GameTime gameTime)
