@@ -10,7 +10,7 @@ namespace Project.Components
     {
         private Actor _actor;
 
-        public RevertSpriteByVelocityComponent(Actor actor) => _actor = actor;
+        public override void Start() => _actor = GameObject.GetActor();
 
         public override void Update(GameTime gameTime)
         {

@@ -156,5 +156,7 @@ namespace UmbrellaToolsKit.Collision
             }
             return rt;
         }
+
+        public override Solid GetSolid() => this;
     }
 }

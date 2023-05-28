@@ -9,21 +9,21 @@ namespace Project.Components
     {
         private Actor _actor;
         private float _jumpForce;
-        private bool canJump = true;
 
-        public JumpComponent(Actor actor, float jumpForce)
+        private JumpAnimation _jumpAnimation;
+
+        public JumpComponent(float jumpForce) => _jumpForce = jumpForce;
+
+        public override void Start()
         {
-            _actor = actor;
-            _jumpForce = jumpForce;
+            _actor = GameObject.GetActor();
+            _jumpAnimation = GameObject.GetComponent<JumpAnimation>();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Z) && canJump)
-            {
-                canJump = false;
+            if (Keyboard.GetState().IsKeyDown(Keys.Z) && _jumpAnimation.IsGrounded)
                 _actor.Velocity.Y -= _jumpForce;
-            }
             base.Update(gameTime);
         }
 

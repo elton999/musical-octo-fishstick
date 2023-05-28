@@ -14,15 +14,12 @@ namespace Project.Components
         private string _walkAnimation = "walk";
         private string _currentAnimation;
 
-        private Vector2 _lastPosition;
-
-        public WalkAnimationComponent(Actor actor)
+        public override void Start()
         {
-            _actor = actor;
+            _animation = GameObject.GetComponent<AnimationComponent>();
+            _actor = GameObject.GetActor();
             _currentAnimation = _idleAnimation;
         }
-
-        public override void Start() => _animation = GameObject.GetComponent<AnimationComponent>();
 
         public override void Update(GameTime gameTime)
         {

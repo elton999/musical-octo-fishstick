@@ -90,6 +90,9 @@ namespace UmbrellaToolsKit
             component.Init(this);
         }
 
+        public virtual Collision.Actor GetActor() => default(Collision.Actor);
+        public virtual Collision.Solid GetSolid() => default(Collision.Solid);
+
         public virtual void restart() { }
 
         public void DrawSprite(SpriteBatch spriteBatch)

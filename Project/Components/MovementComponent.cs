@@ -10,11 +10,9 @@ namespace Project.Components
         private float _speed;
         private Vector2 _direction = Vector2.Zero;
 
-        public MovementComponent(Actor actor, float speed)
-        {
-            _actor = actor;
-            _speed = speed;
-        }
+        public MovementComponent(float speed) => _speed = speed;
+
+        public override void Start() => _actor = GameObject.GetActor();
 
         public void AddDirection(Vector2 direction) => _direction = direction;
 

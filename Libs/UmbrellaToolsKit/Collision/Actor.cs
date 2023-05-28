@@ -184,5 +184,7 @@ namespace UmbrellaToolsKit.Collision
         }
 
         public virtual void squish(string tag = null) { }
+
+        public override Actor GetActor() => this;
     }
 }
