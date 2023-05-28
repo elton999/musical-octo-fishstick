@@ -22,5 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\WalkAnimationComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\RevertSpriteByVelocityComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\JumpComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\AnimationComponent.cs" />
   </ItemGroup>
 </Project>

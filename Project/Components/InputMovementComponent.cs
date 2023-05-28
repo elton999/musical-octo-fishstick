@@ -8,7 +8,7 @@ namespace Project.Components
     {
         private MovementComponent _movementComponent;
 
-        public InputMovementComponent(MovementComponent movementComponent) => _movementComponent = movementComponent;
+        public override void Start() => _movementComponent = GameObject.GetComponent<MovementComponent>();
 
         public override void Update(GameTime gameTime)
         {
@@ -24,7 +24,9 @@ namespace Project.Components
 
             if (direction.Length() > 0)
                 direction.Normalize();
-            _movementComponent.AddDirection(direction);
+
+            if (_movementComponent != null)
+                _movementComponent.AddDirection(direction);
 
             base.Update(gameTime);
         }

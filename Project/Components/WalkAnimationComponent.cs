@@ -8,7 +8,7 @@ namespace Project.Components
     public class WalkAnimationComponent : Component
     {
         private Actor _actor;
-        private AsepriteAnimation _animation;
+        private AnimationComponent _animation;
 
         private string _idleAnimation = "idle";
         private string _walkAnimation = "walk";
@@ -16,19 +16,17 @@ namespace Project.Components
 
         private Vector2 _lastPosition;
 
-        public WalkAnimationComponent(Actor actor, AsepriteAnimation animation)
+        public WalkAnimationComponent(Actor actor)
         {
-            _animation = animation;
             _actor = actor;
-
             _currentAnimation = _idleAnimation;
         }
 
+        public override void Start() => _animation = GameObject.GetComponent<AnimationComponent>();
+
         public override void Update(GameTime gameTime)
         {
-            _animation.Play(gameTime, _currentAnimation, AsepriteAnimation.AnimationDirection.LOOP);
-
-            _actor.Body = _animation.Body;
+            _animation.SetAnimation(_currentAnimation);
             base.Update(gameTime);
         }
 

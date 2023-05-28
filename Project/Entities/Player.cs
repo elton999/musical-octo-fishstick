@@ -8,8 +8,6 @@ namespace Project.Entities
 {
     public class Player : Actor
     {
-        private AsepriteAnimation _animation;
-
         public float Speed = 80f;
         public float JumpForce = 250f;
 
@@ -19,18 +17,15 @@ namespace Project.Entities
 
             Sprite = Scene.Content.Load<Texture2D>("Sprites/player");
 
-            var asepriteAnimation = Scene.Content.Load<AsepriteDefinitions>("Sprites/player_animation");
-            _animation = new AsepriteAnimation(asepriteAnimation);
-
             size = new Point(16, 16);
             GravityScale = 20f;
             MaxVelocity = Gravity2D.Length() * GravityScale;
 
-            var movementComponent = new MovementComponent(this, Speed);
-            AddComponent(new InputMovementComponent(movementComponent));
-            AddComponent(movementComponent);
+            AddComponent(new AnimationComponent("Sprites/player_animation"));
+            AddComponent(new MovementComponent(this, Speed));
+            AddComponent(new InputMovementComponent());
             AddComponent(new RevertSpriteByVelocityComponent(this));
-            AddComponent(new WalkAnimationComponent(this, _animation));
+            AddComponent(new WalkAnimationComponent(this));
             AddComponent(new JumpComponent(this, JumpForce));
 
             base.Start();
