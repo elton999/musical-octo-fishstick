@@ -19,5 +19,7 @@ namespace UmbrellaToolsKit.Interfaces
         void Destroy();
 
         void AddComponent(IComponent component);
+
+        T GetComponent<T>() where T : IComponent;
     }
 }

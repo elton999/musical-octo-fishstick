@@ -87,6 +87,7 @@ namespace UmbrellaToolsKit
         {
             if (_components != null) _components.Add(component);
             else _components = component;
+            component.Init(this);
         }
 
         public virtual void restart() { }
@@ -113,5 +114,11 @@ namespace UmbrellaToolsKit
         public void EndDraw(SpriteBatch spriteBatch) => spriteBatch.End();
 
         public virtual void Dispose() => GC.SuppressFinalize(this);
+
+        public T GetComponent<T>() where T : IComponent
+        {
+            if (Components != null) return Components.GetComponent<T>();
+            return default(T);
+        }
     }
 }
