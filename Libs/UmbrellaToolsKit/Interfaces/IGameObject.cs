@@ -18,7 +18,7 @@ namespace UmbrellaToolsKit.Interfaces
         void DrawBeforeScene(SpriteBatch spriteBatch);
         void Destroy();
 
-        void AddComponent(IComponent component);
+        T AddComponent<T>() where T : IComponent;
 
         T GetComponent<T>() where T : IComponent;
     }

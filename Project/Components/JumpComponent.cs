@@ -12,7 +12,7 @@ namespace Project.Components
 
         private JumpAnimation _jumpAnimation;
 
-        public JumpComponent(float jumpForce) => _jumpForce = jumpForce;
+        public void SetJumpForce(float jumpForce) => _jumpForce = jumpForce;
 
         public override void Start()
         {

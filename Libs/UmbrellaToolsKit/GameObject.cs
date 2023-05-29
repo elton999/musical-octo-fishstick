@@ -83,13 +83,6 @@ namespace UmbrellaToolsKit
         public virtual void OnMouseOver() { }
         public virtual void Destroy() => RemoveFromScene = true;
 
-        public void AddComponent(IComponent component)
-        {
-            if (_components != null) _components.Add(component);
-            else _components = component;
-            component.Init(this);
-        }
-
         public virtual Collision.Actor GetActor() => default(Collision.Actor);
         public virtual Collision.Solid GetSolid() => default(Collision.Solid);
 
@@ -117,6 +110,19 @@ namespace UmbrellaToolsKit
         public void EndDraw(SpriteBatch spriteBatch) => spriteBatch.End();
 
         public virtual void Dispose() => GC.SuppressFinalize(this);
+
+        public T AddComponent<T>() where T : IComponent
+        {
+            var componentInstance = System.Activator.CreateInstance(typeof(T));
+            IComponent component = (IComponent)componentInstance;
+
+            if (_components != null) _components.Add((IComponent)component);
+            else _components = (IComponent)component;
+
+            component.Init(this);
+
+            return (T)componentInstance;
+        }
 
         public T GetComponent<T>() where T : IComponent
         {

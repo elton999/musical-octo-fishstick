@@ -21,13 +21,13 @@ namespace Project.Entities
             GravityScale = 20f;
             MaxVelocity = Gravity2D.Length() * GravityScale;
 
-            AddComponent(new AnimationComponent("Sprites/player_animation"));
-            AddComponent(new MovementComponent(Speed));
-            AddComponent(new InputMovementComponent());
-            AddComponent(new RevertSpriteByVelocityComponent());
-            AddComponent(new WalkAnimationComponent());
-            AddComponent(new JumpAnimation());
-            AddComponent(new JumpComponent(JumpForce));
+            AddComponent<AnimationComponent>().SetPath("Sprites/player_animation");
+            AddComponent<MovementComponent>().SetSpeed(Speed);
+            AddComponent<InputMovementComponent>();
+            AddComponent<RevertSpriteByVelocityComponent>();
+            AddComponent<WalkAnimationComponent>();
+            AddComponent<JumpAnimation>();
+            AddComponent<JumpComponent>().SetJumpForce(JumpForce);
 
             base.Start();
         }
