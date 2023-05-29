@@ -8,8 +8,8 @@ namespace Project.Entities
 {
     public class Player : Actor
     {
-        public float Speed = 80f;
-        public float JumpForce = 250f;
+        public float Speed = 10f;
+        public float JumpForce = 100f;
 
         public override void Start()
         {
@@ -18,8 +18,7 @@ namespace Project.Entities
             Sprite = Scene.Content.Load<Texture2D>("Sprites/player");
 
             size = new Point(16, 16);
-            GravityScale = 20f;
-            MaxVelocity = Gravity2D.Length() * GravityScale;
+            MaxVelocity = 200f;
 
             AddComponent<AnimationComponent>().SetPath("Sprites/player_animation");
             AddComponent<MovementComponent>().SetSpeed(Speed);

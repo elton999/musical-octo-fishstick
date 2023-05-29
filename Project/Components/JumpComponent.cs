@@ -9,6 +9,7 @@ namespace Project.Components
     {
         private Actor _actor;
         private float _jumpForce;
+        private bool _canJump = false;
 
         private JumpAnimation _jumpAnimation;
 
@@ -23,8 +24,18 @@ namespace Project.Components
         public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Z) && _jumpAnimation.IsGrounded)
-                _actor.Velocity.Y -= _jumpForce;
+                _canJump = true;
             base.Update(gameTime);
+        }
+
+        public override void UpdateData(GameTime gameTime)
+        {
+            if (_canJump)
+            {
+                _actor.Velocity.Y = -_jumpForce;
+                _canJump = false;
+            }
+            base.UpdateData(gameTime);
         }
 
     }

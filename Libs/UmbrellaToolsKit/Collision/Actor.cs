@@ -36,7 +36,9 @@ namespace UmbrellaToolsKit.Collision
         public Vector2 Gravity2D = new Vector2(0, 8);
         public Vector2 Velocity = new Vector2(0, 0);
         public float GravityScale = 1;
+        public float GravityFallMultiplier = 0.5f;
         public float MaxVelocity = 0.5f;
+        public bool YMaxVelocity = true;
 
         public void SetFalseAllEdgeCollision()
         {
@@ -56,14 +58,30 @@ namespace UmbrellaToolsKit.Collision
 
         public void Gravity(float deltaTime)
         {
-            Velocity += ((Gravity2D * GravityScale) * deltaTime);
+            if (Velocity.Length() < 0)
+                Velocity += Gravity2D * GravityScale;
+            else
+                Velocity += Gravity2D * GravityScale * GravityFallMultiplier;
 
-            float v = Velocity.Length();
-            if (v > MaxVelocity)
+            if (YMaxVelocity)
             {
-                float vs = MaxVelocity / v;
-                Velocity.X = Velocity.X * vs;
-                Velocity.Y = Velocity.Y * vs;
+                float v = (new Vector2(0, Velocity.Y)).Length();
+                if (v > MaxVelocity)
+                {
+                    float vs = MaxVelocity / v;
+                    Velocity.Y = Velocity.Y * vs;
+                }
+            }
+
+            if (!YMaxVelocity)
+            {
+                float v = Velocity.Length();
+                if (v > MaxVelocity)
+                {
+                    float vs = MaxVelocity / v;
+                    Velocity.X = Velocity.X * vs;
+                    Velocity.Y = Velocity.Y * vs;
+                }
             }
 
             moveX(Velocity.X * deltaTime);
