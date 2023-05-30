@@ -79,8 +79,7 @@ namespace UmbrellaToolsKit.Collision
                 if (v > MaxVelocity)
                 {
                     float vs = MaxVelocity / v;
-                    Velocity.X = Velocity.X * vs;
-                    Velocity.Y = Velocity.Y * vs;
+                    Velocity *= vs;
                 }
             }
 
