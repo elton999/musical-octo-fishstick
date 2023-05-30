@@ -33,12 +33,12 @@ namespace UmbrellaToolsKit.Collision
             { EDGES.BOTTOM_RIGHT, false },
         };
 
-        public Vector2 Gravity2D = new Vector2(0, 8);
-        public Vector2 Velocity = new Vector2(0, 0);
-        public float GravityScale = 1;
-        public float GravityFallMultiplier = 0.5f;
-        public float MaxVelocity = 0.5f;
-        public bool YMaxVelocity = true;
+        [ShowEditor] public Vector2 Gravity2D = new Vector2(0, 8);
+        [ShowEditor] public Vector2 Velocity = new Vector2(0, 0);
+        [ShowEditor] public float GravityScale = 1;
+        [ShowEditor] public float GravityFallMultiplier = 0.5f;
+        [ShowEditor] public float MaxVelocity = 0.5f;
+        [ShowEditor] public bool YMaxVelocity = true;
 
         public void SetFalseAllEdgeCollision()
         {

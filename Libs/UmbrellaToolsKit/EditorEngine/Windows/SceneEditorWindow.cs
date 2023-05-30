@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Reflection;
+using System.Text;
 using System.Collections.Generic;
-using ImGuiNET;
 using Microsoft.Xna.Framework;
-using UmbrellaToolsKit.Interfaces;
+using ImGuiNET;
+using System.Reflection;
+using System.Diagnostics;
+using ldtk;
 
 namespace UmbrellaToolsKit.EditorEngine.Windows
 {
     public class SceneEditorWindow
     {
         private GameManagement _gameManagement;
-        public IGameObject GameObjectSelected;
+        public GameObject GameObjectSelected;
         public List<string> Logs = new List<string>();
 
         public SceneEditorWindow(GameManagement gameManagement)
@@ -27,7 +29,7 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             EditorArea.OnDrawWindow += Draw;
         }
 
-        public void RemoveAsMainWindow() 
+        public void RemoveAsMainWindow()
         {
             EditorMain.OnDrawOverLayer -= RenderEditorView;
             EditorArea.OnDrawWindow -= Draw;
@@ -81,11 +83,11 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
         {
             ImGui.SetNextWindowDockID(iddock, ImGuiCond.Once);
             ImGui.Begin("Game (Edit Mode) (Playing)");
-                ImGui.SetWindowFontScale(1.2f);
+            ImGui.SetWindowFontScale(1.2f);
 
-                _windowPosition = ImGui.GetWindowPos();
-                _windowSize = ImGui.GetWindowSize();
-                _windowPosition += new System.Numerics.Vector2(0, 40f);
+            _windowPosition = ImGui.GetWindowPos();
+            _windowSize = ImGui.GetWindowSize();
+            _windowPosition += new System.Numerics.Vector2(0, 40f);
 
             ImGui.End();
         }
@@ -116,11 +118,11 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             ImGui.SetNextWindowDockID(bottom, ImGuiCond.Once);
             ImGui.Begin("Console");
             ImGui.SetWindowFontScale(1.2f);
-            
+
             if (ImGui.Button("Clear"))
                 Logs.Clear();
 
-            foreach(string line in Logs)
+            foreach (string line in Logs)
                 ImGui.TextUnformatted(line);
 
             ImGui.End();
@@ -131,7 +133,7 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             ImGui.SetNextWindowDockID(left, ImGuiCond.Once);
             ImGui.Begin("Layers");
             ImGui.SetWindowFontScale(1.2f);
-            if (ImGui.TreeNode("Forenground")) 
+            if (ImGui.TreeNode("Forenground"))
                 ShowGameObjectFromLayer(_gameManagement.SceneManagement.MainScene.Foreground);
             if (ImGui.TreeNode("Player"))
                 ShowGameObjectFromLayer(_gameManagement.SceneManagement.MainScene.Players);
@@ -144,12 +146,12 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             ImGui.End();
         }
 
-        private void ShowGameObjectFromLayer(List<IGameObject> layer)
+        private void ShowGameObjectFromLayer(List<GameObject> layer)
         {
-            if(layer.Count == 0)
+            if (layer.Count == 0)
                 ImGui.Text("---- Is empty ----");
             foreach (var gameObject in layer)
-                if (ImGui.Selectable(gameObject.Tag))
+                if (ImGui.Selectable(gameObject.tag))
                     GameObjectSelected = gameObject;
             ImGui.Unindent();
         }
@@ -166,26 +168,27 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
                 {
                     foreach (var attr in fInfo.CustomAttributes)
                     {
-                        if (attr.AttributeType != typeof(ShowEditorAttribute))
-                            continue;
-
-                        switch (fInfo.FieldType.ToString())
+                        if (attr.AttributeType == typeof(ShowEditorAttribute))
                         {
-                            case "Microsoft.Xna.Framework.Vector2":
-                                var vector2 = (Vector2)fInfo.GetValue(GameObjectSelected);
-                                Fields.Field.DrawVector(fInfo.Name, ref vector2);
-                                fInfo.SetValue(GameObjectSelected, vector2);
-                                break;
-                            case "Microsoft.Xna.Framework.Vector3":
-                                var vector3 = (Vector3)fInfo.GetValue(GameObjectSelected);
-                                Fields.Field.DrawVector(fInfo.Name, ref vector3);
-                                fInfo.SetValue(GameObjectSelected, vector3);
-                                break;
-                            case "System.Single":
-                                var floatValue = (float)fInfo.GetValue(GameObjectSelected);
-                                Fields.Field.DrawFloat(fInfo.Name, ref floatValue);
-                                fInfo.SetValue(GameObjectSelected, floatValue);
-                                break;
+                            switch (fInfo.FieldType.ToString())
+                            {
+                                case "Microsoft.Xna.Framework.Vector2":
+                                    var vector2 = (Vector2)fInfo.GetValue(GameObjectSelected);
+                                    Fields.Field.DrawVector(fInfo.Name, ref vector2);
+                                    fInfo.SetValue(GameObjectSelected, vector2);
+                                    break;
+                                case "Microsoft.Xna.Framework.Vector3":
+                                    var vector3 = (Vector3)fInfo.GetValue(GameObjectSelected);
+                                    Fields.Field.DrawVector(fInfo.Name, ref vector3);
+                                    fInfo.SetValue(GameObjectSelected, vector3);
+                                    break;
+                                case "System.Single":
+                                    var floatValue = (float)fInfo.GetValue(GameObjectSelected);
+                                    Fields.Field.DrawFloat(fInfo.Name, ref floatValue);
+                                    fInfo.SetValue(GameObjectSelected, floatValue);
+                                    break;
+                            }
+
                         }
                     }
                 }

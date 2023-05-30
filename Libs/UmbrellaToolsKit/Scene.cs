@@ -19,16 +19,16 @@ namespace UmbrellaToolsKit
         }
 
         #region Layers
-        public List<List<IGameObject>> SortLayers = new List<List<IGameObject>>();
+        public List<List<GameObject>> SortLayers = new List<List<GameObject>>();
 
         // UI
-        public List<IGameObject> UI = new List<IGameObject>();
+        public List<GameObject> UI = new List<GameObject>();
         // Layers
-        public List<IGameObject> Foreground = new List<IGameObject>();
-        public List<IGameObject> Players = new List<IGameObject>();
-        public List<IGameObject> Enemies = new List<IGameObject>();
-        public List<IGameObject> Middleground = new List<IGameObject>();
-        public List<IGameObject> Backgrounds = new List<IGameObject>();
+        public List<GameObject> Foreground = new List<GameObject>();
+        public List<GameObject> Players = new List<GameObject>();
+        public List<GameObject> Enemies = new List<GameObject>();
+        public List<GameObject> Middleground = new List<GameObject>();
+        public List<GameObject> Backgrounds = new List<GameObject>();
 
         // Collision
         public List<Solid> AllSolids = new List<Solid>();
@@ -39,7 +39,7 @@ namespace UmbrellaToolsKit
 
         public void addLayers()
         {
-            SortLayers = new List<List<IGameObject>>();
+            SortLayers = new List<List<GameObject>>();
             SortLayers.Add(Foreground);
             SortLayers.Add(Players);
             SortLayers.Add(Enemies);
@@ -47,9 +47,10 @@ namespace UmbrellaToolsKit
             SortLayers.Add(Backgrounds);
         }
 
-        public void AddGameObject(IGameObject gameObject, Layers layer = Layers.MIDDLEGROUND)
+        public void AddGameObject(GameObject gameObject, Layers layer = Layers.MIDDLEGROUND)
         {
             gameObject.Scene = this;
+            gameObject.Content = Content;
             gameObject.Start();
 
             switch (layer)
@@ -155,7 +156,7 @@ namespace UmbrellaToolsKit
         #region Update
         public float timer = 0;
         public float updateDataTime = 1 / 30f;
-        private void UpdateGameObjects(GameTime gameTime, List<List<IGameObject>> layers)
+        private void UpdateGameObjects(GameTime gameTime, List<List<GameObject>> layers)
         {
             //UI update
             for (int i = UI.Count - 1; i >= 0; i--)
@@ -198,7 +199,7 @@ namespace UmbrellaToolsKit
             }
         }
 
-        public void IsVisibleGameObject(List<List<IGameObject>> layers)
+        public void IsVisibleGameObject(List<List<GameObject>> layers)
         {
             for (int i = layers.Count - 1; i >= 0; i--)
                 for (int e = layers[i].Count - 1; e >= 0; e--)
@@ -208,7 +209,7 @@ namespace UmbrellaToolsKit
                         layers[i][e].OnInvisible();
         }
 
-        private bool CheckIsVisible(IGameObject gameObject)
+        private bool CheckIsVisible(GameObject gameObject)
         {
             Vector2 _gameObjectPosition = gameObject.Position;
 
@@ -231,13 +232,13 @@ namespace UmbrellaToolsKit
             return false;
         }
 
-        private void RemoveGameObject(List<List<IGameObject>> layers)
+        private void RemoveGameObject(List<List<GameObject>> layers)
         {
             // UI
-            IEnumerable<IGameObject> _UI_Objects_to_remove = from gameObject in UI where gameObject.RemoveFromScene == true select gameObject;
+            IEnumerable<GameObject> _UI_Objects_to_remove = from gameObject in UI where gameObject.RemoveFromScene == true select gameObject;
 
-            IEnumerable<IGameObject> _UI_Objects = from gameObject in UI where gameObject.RemoveFromScene == false select gameObject;
-            UI = _UI_Objects.ToList<IGameObject>();
+            IEnumerable<GameObject> _UI_Objects = from gameObject in UI where gameObject.RemoveFromScene == false select gameObject;
+            UI = _UI_Objects.ToList<GameObject>();
 
             for (int i = layers.Count - 1; i >= 0; i--)
             {
@@ -261,7 +262,7 @@ namespace UmbrellaToolsKit
             ScreenGraphicsDevice.SetRenderTarget(this._BackBuffer);
         }
 
-        private void DrawGameObjects(SpriteBatch spriteBatch, List<List<IGameObject>> layers)
+        private void DrawGameObjects(SpriteBatch spriteBatch, List<List<GameObject>> layers)
         {
             for (int i = layers.Count - 1; i >= 0; i--)
                 for (int e = layers[i].Count - 1; e >= 0; e--)
@@ -269,7 +270,7 @@ namespace UmbrellaToolsKit
                         layers[i][e].Draw(spriteBatch);
         }
 
-        private void DrawGameObjectsBeforeScene(SpriteBatch spriteBatch, List<List<IGameObject>> layers)
+        private void DrawGameObjectsBeforeScene(SpriteBatch spriteBatch, List<List<GameObject>> layers)
         {
             for (int i = layers.Count - 1; i >= 0; i--)
                 for (int e = layers[i].Count - 1; e >= 0; e--)
@@ -341,14 +342,14 @@ namespace UmbrellaToolsKit
             _BackBuffer.Dispose();
             _BackBuffer = null;
 
-            foreach (List<IGameObject> layer in SortLayers)
+            foreach (List<GameObject> layer in SortLayers)
             {
-                foreach (IGameObject gameObject in layer)
+                foreach (GameObject gameObject in layer)
                     gameObject.Dispose();
                 layer.Clear();
             }
 
-            foreach (IGameObject gameObject in UI)
+            foreach (GameObject gameObject in UI)
                 gameObject.Dispose();
             UI.Clear();
 
