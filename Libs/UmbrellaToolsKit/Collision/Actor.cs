@@ -178,7 +178,7 @@ namespace UmbrellaToolsKit.Collision
                     rt = true;
                 }
             }
-            if (Scene.Grid != null && Scene.Grid.checkOverlap(size, position, this))
+            if (Scene.Grid != null && Scene.Grid.checkOverlap(size, position, this, false))
                 return true;
 
             return rt;
