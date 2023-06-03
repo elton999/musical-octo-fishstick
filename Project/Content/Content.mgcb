@@ -15,6 +15,16 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Maps/Level_1.json
+/importer:OgmoTileMapImporter
+/processor:OgmoTileMapProcessor
+/build:Maps/Level_1.json
+
+#begin Maps/TileMap.ogmo
+/importer:OgmoImporter
+/processor:OgmoProcessor
+/build:Maps/TileMap.ogmo
+
 #begin new.cdb
 /copy:new.cdb
 
@@ -34,4 +44,16 @@
 /importer:AsepriteImporter
 /processor:AsepriteProcessor
 /build:Sprites/player_animation.json
+
+#begin Sprites/Tilemap.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Tilemap.png
 

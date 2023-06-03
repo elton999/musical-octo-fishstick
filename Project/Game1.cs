@@ -37,15 +37,12 @@ namespace Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _assetManagement = new AssetManagement();
+            _assetManagement.Set<Player>("player", Layers.PLAYER);
+
             var scene = _gameManagement.SceneManagement.MainScene;
-
-            var player = new Player();
-            var ground = new UmbrellaToolsKit.Collision.Solid();
-            ground.size = new Point(140, 10);
-            ground.Position = new Vector2(0, 50);
-
-            scene.AddGameObject(player, Layers.PLAYER);
-            scene.AddGameObject(ground);
+            scene.Dispose();
+            scene.SetLevel(1);
+            scene.Camera.Position = scene.Sizes.ToVector2() / 2f;
         }
 
         protected override void Update(GameTime gameTime)
