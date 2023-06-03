@@ -112,7 +112,7 @@ namespace UmbrellaToolsKit
         public Ogmo.TileSet tileSet;
         public GameManagement GameManagement;
 
-        public string MapLevelPath = "Maps/level_";
+        public string MapLevelPath = "Maps/Level_";
         public string MapLevelLdtkPath = "Maps/TileMap";
         public string TileMapPath = "Sprites/tilemap";
 
@@ -356,7 +356,7 @@ namespace UmbrellaToolsKit
             AllSolids.Clear();
             AllActors.Clear();
 
-            Grid.Dispose();
+            if (Grid != null) Grid.Dispose();
 
             GC.SuppressFinalize(this);
             GC.Collect();
