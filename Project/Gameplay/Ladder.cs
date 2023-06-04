@@ -19,6 +19,12 @@ namespace Project.Gameplay
             _square.size = size;
             _square.Position = Position;
             Scene.AddGameObject(_square);
+
+            var platform = new Gameplay.Platform();
+            platform.size = new Point(size.X, 1);
+            platform.Position = Position;
+
+            Scene.AddGameObject(platform);
         }
 
         public override void UpdateData(GameTime gameTime)
