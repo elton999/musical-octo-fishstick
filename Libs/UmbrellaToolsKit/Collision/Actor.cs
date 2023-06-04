@@ -143,16 +143,19 @@ namespace UmbrellaToolsKit.Collision
             }
         }
 
-        public bool overlapCheck(Actor actor)
+        public bool overlapCheck(Actor actor) => overlapCheck(actor.size, actor.Position);
+
+        public bool overlapCheck(Point size, Vector2 position)
         {
-            bool AisToTheRightOfB = actor.Left >= Right;
-            bool AisToTheLeftOfB = actor.Right <= Left;
-            bool AisAboveB = actor.Bottom <= Top;
-            bool AisBelowB = actor.Top >= Bottom;
+            bool AisToTheRightOfB = position.X >= Right;
+            bool AisToTheLeftOfB = position.X + size.X <= Left;
+            bool AisAboveB = position.Y + size.Y <= Top;
+            bool AisBelowB = position.Y >= Bottom;
             return !(AisToTheRightOfB
                 || AisToTheLeftOfB
                 || AisAboveB
                 || AisBelowB);
+
         }
 
         public bool overlapCheckPixel(Actor actor)
@@ -186,7 +189,7 @@ namespace UmbrellaToolsKit.Collision
 
         public virtual bool isRiding(Solid solid)
         {
-            if (solid.check(size, new Vector2(Position.X, Position.Y + 1)))
+            if (solid.check(size, Position + Vector2.UnitY))
                 return true;
 
             return false;
@@ -194,7 +197,7 @@ namespace UmbrellaToolsKit.Collision
 
         public virtual bool isRidingGrid(Grid grid)
         {
-            if (grid.checkOverlap(size, new Vector2(Position.X, Position.Y + 1), this))
+            if (grid.checkOverlap(size, Position + Vector2.UnitY, this))
                 return true;
 
             return false;
