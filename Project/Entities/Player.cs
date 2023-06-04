@@ -8,7 +8,7 @@ namespace Project.Entities
 {
     public class Player : Actor
     {
-        public float Speed = 10f;
+        public float Speed = 6f;
         public float JumpForce = 100f;
 
         public override void Start()
@@ -21,11 +21,11 @@ namespace Project.Entities
             MaxVelocity = 200f;
 
             AddComponent<AnimationComponent>().SetPath("Sprites/player_animation");
+            AddComponent<JumpAnimation>();
             AddComponent<MovementComponent>().SetSpeed(Speed);
             AddComponent<InputMovementComponent>();
             AddComponent<RevertSpriteByVelocityComponent>();
             AddComponent<WalkAnimationComponent>();
-            AddComponent<JumpAnimation>();
             AddComponent<JumpComponent>().SetJumpForce(JumpForce);
 
             base.Start();

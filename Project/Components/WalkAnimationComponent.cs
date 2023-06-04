@@ -9,6 +9,7 @@ namespace Project.Components
     {
         private Actor _actor;
         private AnimationComponent _animation;
+        private JumpAnimation _jumpAnimation;
 
         private string _idleAnimation = "idle";
         private string _walkAnimation = "walk";
@@ -17,13 +18,15 @@ namespace Project.Components
         public override void Start()
         {
             _animation = GameObject.GetComponent<AnimationComponent>();
+            _jumpAnimation = GameObject.GetComponent<JumpAnimation>();
             _actor = GameObject.GetActor();
             _currentAnimation = _idleAnimation;
         }
 
         public override void Update(GameTime gameTime)
         {
-            _animation.SetAnimation(_currentAnimation);
+            if (_jumpAnimation.IsGrounded)
+                _animation.SetAnimation(_currentAnimation);
             base.Update(gameTime);
         }
 
