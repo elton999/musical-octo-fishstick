@@ -1,6 +1,7 @@
 using UmbrellaToolsKit;
 using UmbrellaToolsKit.Collision;
 using Microsoft.Xna.Framework;
+using Project.Components;
 
 namespace Project.Gameplay
 {
@@ -18,6 +19,20 @@ namespace Project.Gameplay
             _square.size = size;
             _square.Position = Position;
             Scene.AddGameObject(_square);
+        }
+
+        public override void UpdateData(GameTime gameTime)
+        {
+            base.UpdateData(gameTime);
+
+            foreach (var actor in Scene.AllActors)
+            {
+                if (actor.tag != tag)
+                {
+                    var ladderComponent = actor.GetComponent<LadderComponent>();
+                    if (ladderComponent != null) ladderComponent.IsInTheLadder = overlapCheck(actor);
+                }
+            }
         }
     }
 }

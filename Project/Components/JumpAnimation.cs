@@ -8,21 +8,23 @@ namespace Project.Components
     {
         private Actor _actor;
         private AnimationComponent _animation;
+        private LadderComponent _ladderComponent;
 
         private string _jumpAnimation = "jump";
 
         public bool IsGrounded = false;
 
-
         public override void Start()
         {
             _animation = GameObject.GetComponent<AnimationComponent>();
+            _ladderComponent = GameObject.GetComponent<LadderComponent>();
             _actor = GameObject.GetActor();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (!IsGrounded) _animation.SetAnimation(_jumpAnimation);
+            if (!IsGrounded && !_ladderComponent.IsInTheLadder)
+                _animation.SetAnimation(_jumpAnimation);
 
             base.Update(gameTime);
         }

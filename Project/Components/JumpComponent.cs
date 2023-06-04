@@ -12,6 +12,7 @@ namespace Project.Components
         private bool _canJump = false;
 
         private JumpAnimation _jumpAnimation;
+        private LadderComponent _ladderComponent;
 
         public void SetJumpForce(float jumpForce) => _jumpForce = jumpForce;
 
@@ -19,11 +20,12 @@ namespace Project.Components
         {
             _actor = GameObject.GetActor();
             _jumpAnimation = GameObject.GetComponent<JumpAnimation>();
+            _ladderComponent = GameObject.GetComponent<LadderComponent>();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Z) && _jumpAnimation.IsGrounded)
+            if (Keyboard.GetState().IsKeyDown(Keys.Z) && _jumpAnimation.IsGrounded && !_ladderComponent.IsInTheLadder)
                 _canJump = true;
             base.Update(gameTime);
         }

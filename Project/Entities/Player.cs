@@ -21,6 +21,7 @@ namespace Project.Entities
             Gravity2D = Vector2.UnitY * 30f;
             MaxVelocity = 200f;
 
+            AddComponent<LadderComponent>();
             AddComponent<AnimationComponent>().SetPath("Sprites/player_animation");
             AddComponent<JumpAnimation>();
             AddComponent<MovementComponent>().SetSpeed(Speed);
