@@ -40,12 +40,11 @@ namespace Project.Components
             IsGrounded = false;
 
             foreach (Solid solid in _actor.Scene.AllSolids)
-                if (solid.check(_actor.size, _actor.Position + Vector2.UnitY))
-                    IsGrounded = true;
+                if (_actor.isRiding(solid)) IsGrounded = true;
 
             if (_actor.Scene.Grid == null) return;
 
-            if (_actor.Scene.Grid.checkOverlap(_actor.size, _actor.Position + Vector2.UnitY, _actor))
+            if (_actor.isRidingGrid(_actor.Scene.Grid))
                 IsGrounded = true;
         }
     }

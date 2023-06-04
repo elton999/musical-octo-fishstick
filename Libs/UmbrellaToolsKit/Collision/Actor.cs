@@ -172,7 +172,7 @@ namespace UmbrellaToolsKit.Collision
             bool rt = false;
             foreach (Solid solid in solids)
             {
-                if (solid.check(size, position))
+                if (solid.check(size, position, this))
                 {
                     solid.OnCollision(tag);
                     rt = true;

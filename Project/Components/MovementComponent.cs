@@ -10,7 +10,6 @@ namespace Project.Components
         private float _speed;
         private Vector2 _direction = Vector2.Zero;
         private JumpAnimation _jumpComponent;
-        private LadderComponent _ladderComponent;
 
         public void SetSpeed(float speed) => _speed = speed;
 
@@ -18,7 +17,6 @@ namespace Project.Components
         {
             _actor = GameObject.GetActor();
             _jumpComponent = GameObject.GetComponent<JumpAnimation>();
-            _ladderComponent = GameObject.GetComponent<LadderComponent>();
         }
 
         public void AddDirection(Vector2 direction) => _direction = direction;
@@ -29,7 +27,7 @@ namespace Project.Components
             var moveValue = _direction * (_jumpComponent.IsGrounded ? _speed : _speed / 2f) * deltaTime;
 
             _actor.Velocity.X = moveValue.X;
-            if (_ladderComponent.IsInTheLadder)
+            if (_actor.Gravity2D.Length() == 0)
                 _actor.Velocity.Y = moveValue.Y;
 
             base.UpdateData(gameTime);
