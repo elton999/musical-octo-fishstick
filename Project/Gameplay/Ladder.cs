@@ -1,3 +1,4 @@
+using System;
 using UmbrellaToolsKit;
 using UmbrellaToolsKit.Collision;
 using Microsoft.Xna.Framework;
@@ -20,7 +21,7 @@ namespace Project.Gameplay
             _square.Position = Position;
             Scene.AddGameObject(_square);
 
-            var platform = new Gameplay.Platform();
+            var platform = new Gameplay.LadderPlatform();
             platform.size = new Point(size.X, 1);
             platform.Position = Position;
 
@@ -33,11 +34,18 @@ namespace Project.Gameplay
 
             foreach (var actor in Scene.AllActors)
             {
-                if (actor.tag != tag)
+                if (actor.tag == tag) continue;
+
+                var ladderComponent = actor.GetComponent<LadderComponent>();
+                var movementComponent = actor.GetComponent<MovementComponent>();
+
+                if (movementComponent != null && ladderComponent != null)
                 {
-                    var ladderComponent = actor.GetComponent<LadderComponent>();
-                    if (ladderComponent != null) ladderComponent.IsInTheLadder = overlapCheck(actor);
+                    ladderComponent.IsInTheLadder = overlapCheck(actor);
+                    ladderComponent.CanClimbLadder = MathF.Sign(movementComponent.Direction.Y) != 0 && overlapCheck(actor.size, actor.Position + Vector2.UnitY) && !overlapCheck(actor.size, actor.Position);
+                    ladderComponent.CanClimbLadder = ladderComponent.CanClimbLadder || overlapCheck(actor.size, actor.Position);
                 }
+
             }
         }
     }

@@ -7,13 +7,8 @@ namespace Project.Components
     public class InputMovementComponent : Component
     {
         private MovementComponent _movementComponent;
-        private LadderComponent _ladderComponent;
 
-        public override void Start()
-        {
-            _movementComponent = GameObject.GetComponent<MovementComponent>();
-            _ladderComponent = GameObject.GetComponent<LadderComponent>();
-        }
+        public override void Start() => _movementComponent = GameObject.GetComponent<MovementComponent>();
 
         public override void Update(GameTime gameTime)
         {
@@ -26,7 +21,7 @@ namespace Project.Components
             bool up = Keyboard.GetState().IsKeyDown(Keys.Up);
             bool down = Keyboard.GetState().IsKeyDown(Keys.Down);
 
-            if (_ladderComponent.IsInTheLadder) direction.Y = up ? -1 : down ? 1 : 0;
+            direction.Y = up ? -1 : down ? 1 : 0;
 
             if (direction.Length() > 0)
                 direction.Normalize();

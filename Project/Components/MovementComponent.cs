@@ -11,6 +11,8 @@ namespace Project.Components
         private Vector2 _direction = Vector2.Zero;
         private JumpAnimation _jumpComponent;
 
+        public Vector2 Direction { get => _direction; }
+
         public void SetSpeed(float speed) => _speed = speed;
 
         public override void Start()
