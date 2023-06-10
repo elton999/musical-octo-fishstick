@@ -28,5 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\LadderComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\Platform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\LadderPlatform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Gameplay\Bomb.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Gameplay\Nodes.cs" />
   </ItemGroup>
 </Project>
