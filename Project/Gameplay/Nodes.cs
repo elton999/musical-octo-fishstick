@@ -24,11 +24,11 @@ namespace Project.Gameplay
             _square.Origin = new Vector2(4, 4);
             _square.Start();
 
-            SetNodePositions();
+            SetupNodes();
             CurrentNode = NodesPosition[0];
         }
 
-        public void SetNodePositions()
+        public void SetupNodes()
         {
             NodesPosition = new List<NodePosition>();
 
@@ -46,31 +46,35 @@ namespace Project.Gameplay
                         currentNode = createdNode;
 
                 currentNode.Position = nodePosition;
-
-                if (dotVector.X < 0)
-                {
-                    currentNode.LeftPosition = lastNode;
-                    lastNode.RightPosition = currentNode;
-                }
-                if (dotVector.X > 0)
-                {
-                    currentNode.RightPosition = lastNode;
-                    lastNode.LeftPosition = currentNode;
-                }
-
-                if (dotVector.Y < 0)
-                {
-                    currentNode.UpPosition = lastNode;
-                    lastNode.DownPosition = currentNode;
-                }
-                if (dotVector.Y > 0)
-                {
-                    currentNode.DownPosition = lastNode;
-                    lastNode.UpPosition = currentNode;
-                }
+                SetNodeSettings(lastNode, dotVector, currentNode);
 
                 NodesPosition.Add(currentNode);
                 lastNode = currentNode;
+            }
+        }
+
+        private static void SetNodeSettings(NodePosition lastNode, Vector2 dotVector, NodePosition currentNode)
+        {
+            if (dotVector.X < 0)
+            {
+                currentNode.LeftPosition = lastNode;
+                lastNode.RightPosition = currentNode;
+            }
+            if (dotVector.X > 0)
+            {
+                currentNode.RightPosition = lastNode;
+                lastNode.LeftPosition = currentNode;
+            }
+
+            if (dotVector.Y < 0)
+            {
+                currentNode.UpPosition = lastNode;
+                lastNode.DownPosition = currentNode;
+            }
+            if (dotVector.Y > 0)
+            {
+                currentNode.DownPosition = lastNode;
+                lastNode.UpPosition = currentNode;
             }
         }
 
