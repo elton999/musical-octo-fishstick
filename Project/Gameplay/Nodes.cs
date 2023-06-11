@@ -1,3 +1,4 @@
+using System.Collections;
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -14,18 +15,25 @@ namespace Project.Gameplay
 
         public List<NodePosition> NodesPosition;
         public NodePosition CurrentNode;
+        public NodePosition Target;
+        public NodePosition StartNode;
+        public List<List<NodePosition>> Paths = new List<List<NodePosition>>();
+        public List<NodePosition> Path;
 
         public override void Start()
         {
             _square = new Square();
-            _square.SquareColor = Color.Blue;
+            _square.SquareColor = Color.White;
             _square.Scene = Scene;
             _square.size = new Point(8, 8);
             _square.Origin = new Vector2(4, 4);
             _square.Start();
 
             SetupNodes();
+            SetPath();
             CurrentNode = NodesPosition[0];
+
+            coroutine.StarCoroutine(Courotine());
         }
 
         public void SetupNodes()
@@ -51,6 +59,67 @@ namespace Project.Gameplay
                 NodesPosition.Add(currentNode);
                 lastNode = currentNode;
             }
+        }
+
+        public void SetPath()
+        {
+            Target = NodesPosition[3];
+            StartNode = NodesPosition[0];
+
+            var firstPath = new List<NodePosition>();
+            Paths.Add(firstPath);
+
+            GetPosition(StartNode, null, firstPath);
+            var allValidPaths = new List<List<NodePosition>>();
+
+            foreach (var path in Paths)
+            {
+                if (path.Count > 1 && path[path.Count - 1] == Target)
+                    allValidPaths.Add(path);
+                else if (path.Count > 0 && path[0] == Target)
+                    allValidPaths.Add(path);
+            }
+
+            List<float> distances = new List<float>();
+
+            for (int i = 0; i < allValidPaths.Count; i++)
+            {
+                distances.Add(0);
+                for (int j = 0; j < allValidPaths[i].Count - 1; j++)
+                    distances[i] += Vector2.Distance(allValidPaths[i][j + 1].Position, allValidPaths[i][j].Position);
+            }
+
+            for (int i = 0; i < distances.Count; i++)
+                System.Console.WriteLine(distances[i]);
+        }
+
+        public void GetPosition(NodePosition node, NodePosition lastNode, List<NodePosition> path)
+        {
+            if (node.LeftPosition != null && lastNode != node.LeftPosition)
+                SetNewPath(node.LeftPosition, node, path);
+
+            if (node.RightPosition != null && lastNode != node.RightPosition)
+                SetNewPath(node.RightPosition, node, path);
+
+            if (node.UpPosition != null && lastNode != node.UpPosition)
+                SetNewPath(node.UpPosition, node, path);
+
+            if (node.DownPosition != null && lastNode != node.DownPosition)
+                SetNewPath(node.DownPosition, node, path);
+        }
+
+        private void SetNewPath(NodePosition node, NodePosition lastNode, List<NodePosition> path)
+        {
+            if (path.Contains(node)) return;
+
+            var newPath = new List<NodePosition>();
+            newPath.AddRange(path);
+            Paths.Add(newPath);
+
+            newPath.Add(node);
+            if (node.Position != Target.Position && node.Position != StartNode.Position)
+                GetPosition(node, lastNode, newPath);
+
         }
 
         private static void SetNodeSettings(NodePosition lastNode, Vector2 dotVector, NodePosition currentNode)
@@ -93,6 +162,23 @@ namespace Project.Gameplay
             return new Vector2(horizontal, vertical);
         }
 
+
+        public CoroutineManagement coroutine = new CoroutineManagement();
+        public IEnumerator Courotine()
+        {
+            int currentPath = 0;
+            while (true)
+            {
+                Path = Paths[currentPath];
+                yield return coroutine.Wait(200f);
+                currentPath++;
+                if (currentPath >= Paths.Count)
+                    currentPath = 0;
+            }
+
+            yield return null;
+        }
+
         public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W))
@@ -112,14 +198,25 @@ namespace Project.Gameplay
                     CurrentNode = CurrentNode.RightPosition;
 
 
+            coroutine.Update(gameTime);
+
             base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             _square.BeginDraw(spriteBatch);
-            _square.Position = CurrentNode.Position;
+            foreach (var node in Path)
+            {
+                _square.SpriteColor = Color.Aqua;
+                _square.Position = node.Position;
+                _square.DrawSprite(spriteBatch);
+            }
+
+            _square.SpriteColor = Color.White;
+            _square.Position = Target.Position;
             _square.DrawSprite(spriteBatch);
+
             _square.EndDraw(spriteBatch);
         }
     }
