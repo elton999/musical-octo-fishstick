@@ -8,6 +8,8 @@ namespace Project.Pathing
     {
         public void PathUpdate(IPathble pathble)
         {
+            pathble.Paths.Clear();
+
             var firstPath = new List<NodePosition>();
             pathble.Paths.Add(firstPath);
 

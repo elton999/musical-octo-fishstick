@@ -38,9 +38,10 @@ namespace Project
 
             _assetManagement = new AssetManagement();
             _assetManagement.Set<Player>("player", Layers.PLAYER);
+            _assetManagement.Set<Enemy>("enemy", Layers.ENEMIES);
+            _assetManagement.Set<Gameplay.Nodes>("node", Layers.FOREGROUND);
             _assetManagement.Set<Gameplay.Ladder>("ladder", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.Platform>("platform", Layers.MIDDLEGROUND);
-            _assetManagement.Set<Gameplay.Nodes>("node", Layers.FOREGROUND);
 
             var scene = _gameManagement.SceneManagement.MainScene;
             scene.Dispose();

@@ -34,5 +34,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pathing\PathReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pathing\IPathble.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pathing\NodePathing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\PathingComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Enemy.cs" />
   </ItemGroup>
 </Project>

@@ -14,9 +14,11 @@ namespace Project.Components
 
         public override void Update(GameTime gameTime)
         {
-            int spriteSizeValue = MathF.Sign(_actor.Velocity.X);
-            if (spriteSizeValue != 0)
+            if (_actor.Velocity.Length() > 0)
+            {
+                int spriteSizeValue = MathF.Sign(_actor.Velocity.X);
                 _actor.spriteEffect = spriteSizeValue > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            }
 
             base.Update(gameTime);
         }

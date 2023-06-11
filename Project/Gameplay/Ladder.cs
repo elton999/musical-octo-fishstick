@@ -39,10 +39,12 @@ namespace Project.Gameplay
                 var ladderComponent = actor.GetComponent<LadderComponent>();
                 var movementComponent = actor.GetComponent<MovementComponent>();
 
-                if (movementComponent != null && ladderComponent != null)
+                if (movementComponent != null && ladderComponent != null && movementComponent.Direction.Length() > 0)
                 {
                     ladderComponent.IsInTheLadder = overlapCheck(actor);
-                    ladderComponent.CanClimbLadder = MathF.Sign(movementComponent.Direction.Y) != 0 && overlapCheck(actor.size, actor.Position + Vector2.UnitY) && !overlapCheck(actor.size, actor.Position);
+                    ladderComponent.CanClimbLadder = MathF.Sign(movementComponent.Direction.Y) != 0 &&
+                    overlapCheck(actor.size, actor.Position + Vector2.UnitY) && !overlapCheck(actor.size, actor.Position);
+
                     ladderComponent.CanClimbLadder = ladderComponent.CanClimbLadder || overlapCheck(actor.size, actor.Position);
                 }
 

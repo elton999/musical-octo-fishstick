@@ -1,45 +1,18 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using UmbrellaToolsKit;
-using UmbrellaToolsKit.Sprite;
-using Project.Pathing;
 
 namespace Project.Gameplay
 {
-    public class Nodes : GameObject, IPathble
+    public class Nodes : GameObject
     {
-        private Square _square;
+        public static List<NodePosition> NodesPosition;
 
-        public List<NodePosition> NodesPosition;
-        public NodePosition Target { get; set; }
-        public NodePosition StartNode { get; set; }
-        public List<List<NodePosition>> Paths { get; set; }
-        public List<NodePosition> Path { get; set; }
-
-        public PathReader PathReader;
-
-        public override void Start()
-        {
-            _square = new Square();
-            _square.SquareColor = Color.White;
-            _square.Scene = Scene;
-            _square.size = new Point(8, 8);
-            _square.Origin = new Vector2(4, 4);
-            _square.Start();
-
-            SetupNodes();
-            Target = NodesPosition[5];
-            StartNode = NodesPosition[0];
-            PathReader = new PathReader();
-
-            PathReader.PathUpdate(this);
-        }
+        public override void Start() => SetupNodes();
 
         public void SetupNodes()
         {
-            Paths = new List<List<NodePosition>>();
             NodesPosition = new List<NodePosition>();
 
             var lastNode = new NodePosition();
@@ -63,7 +36,7 @@ namespace Project.Gameplay
             }
         }
 
-        private static void SetNodeSettings(NodePosition lastNode, Vector2 dotVector, NodePosition currentNode)
+        public static void SetNodeSettings(NodePosition lastNode, Vector2 dotVector, NodePosition currentNode)
         {
             if (dotVector.X < 0)
             {
@@ -88,7 +61,7 @@ namespace Project.Gameplay
             }
         }
 
-        private static Vector2 GetDot(NodePosition lastNode, Vector2 nodePosition)
+        public static Vector2 GetDot(NodePosition lastNode, Vector2 nodePosition)
         {
             float horizontal, vertical;
 
@@ -101,41 +74,6 @@ namespace Project.Gameplay
             vertical = MathF.Sign(vertical);
 
             return new Vector2(horizontal, vertical);
-        }
-
-        public override void UpdateData(GameTime gameTime)
-        {
-            float targetDistance = float.PositiveInfinity;
-
-            for (int i = 0; i < NodesPosition.Count; i++)
-            {
-                var playerPosition = Scene.AllActors[0].Position;
-                float distance = Vector2.Distance(playerPosition, NodesPosition[i].Position);
-                if (targetDistance > distance)
-                {
-                    Target = NodesPosition[i];
-                    targetDistance = distance;
-                }
-            }
-
-            PathReader.PathUpdate(this);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            _square.BeginDraw(spriteBatch);
-            foreach (var node in Path)
-            {
-                _square.SpriteColor = Color.Aqua;
-                _square.Position = node.Position;
-                _square.DrawSprite(spriteBatch);
-            }
-
-            _square.SpriteColor = Color.White;
-            _square.Position = Target.Position;
-            _square.DrawSprite(spriteBatch);
-
-            _square.EndDraw(spriteBatch);
         }
     }
 }

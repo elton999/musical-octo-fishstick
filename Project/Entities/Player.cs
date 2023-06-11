@@ -1,5 +1,4 @@
 using Project.Components;
-using UmbrellaToolsKit.Sprite;
 using UmbrellaToolsKit.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

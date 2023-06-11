@@ -22,7 +22,7 @@ namespace Project.Gameplay
 
         public override bool check(Point size, Vector2 position, Actor actor = null)
         {
-            if (actor != null && MathF.Sign(actor.Velocity.Y) == -1)
+            if (actor != null && actor.Velocity.Length() > 0 && MathF.Sign(actor.Velocity.Y) == -1)
                 return false;
             return base.check(size, position);
         }
