@@ -30,5 +30,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\LadderPlatform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\Bomb.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\Nodes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Gameplay\NodePosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pathing\PathReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pathing\IPathble.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pathing\NodePathing.cs" />
   </ItemGroup>
 </Project>
