@@ -12,7 +12,6 @@ namespace Project.Gameplay
         private Square _square;
 
         public List<NodePosition> NodesPosition;
-        public NodePosition CurrentNode;
         public NodePosition Target;
         public NodePosition StartNode;
         public List<List<NodePosition>> Paths = new List<List<NodePosition>>();
@@ -28,12 +27,13 @@ namespace Project.Gameplay
             _square.Start();
 
             SetupNodes();
+            Target = NodesPosition[5];
             SetPath();
-            CurrentNode = NodesPosition[0];
         }
 
         public void SetupNodes()
         {
+            Paths.Clear();
             NodesPosition = new List<NodePosition>();
 
             var lastNode = new NodePosition();
@@ -59,7 +59,6 @@ namespace Project.Gameplay
 
         public void SetPath()
         {
-            Target = NodesPosition[3];
             StartNode = NodesPosition[0];
 
             var firstPath = new List<NodePosition>();
@@ -93,7 +92,6 @@ namespace Project.Gameplay
                     distance = distances[i];
                     Path = allValidPaths[i];
                 }
-
             }
         }
 
@@ -164,6 +162,24 @@ namespace Project.Gameplay
             vertical = MathF.Sign(vertical);
 
             return new Vector2(horizontal, vertical);
+        }
+
+        public override void UpdateData(GameTime gameTime)
+        {
+            float targetDistance = float.PositiveInfinity;
+
+            for (int i = 0; i < NodesPosition.Count; i++)
+            {
+                var playerPosition = Scene.AllActors[0].Position;
+                float distance = Vector2.Distance(playerPosition, NodesPosition[i].Position);
+                if (targetDistance > distance)
+                {
+                    Target = NodesPosition[i];
+                    targetDistance = distance;
+                }
+            }
+
+            SetPath();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
