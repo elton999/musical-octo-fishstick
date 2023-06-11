@@ -1,8 +1,6 @@
-using System.Collections;
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using UmbrellaToolsKit;
 using UmbrellaToolsKit.Sprite;
@@ -32,8 +30,6 @@ namespace Project.Gameplay
             SetupNodes();
             SetPath();
             CurrentNode = NodesPosition[0];
-
-            coroutine.StarCoroutine(Courotine());
         }
 
         public void SetupNodes()
@@ -89,8 +85,16 @@ namespace Project.Gameplay
                     distances[i] += Vector2.Distance(allValidPaths[i][j + 1].Position, allValidPaths[i][j].Position);
             }
 
+            float distance = float.PositiveInfinity;
             for (int i = 0; i < distances.Count; i++)
-                System.Console.WriteLine(distances[i]);
+            {
+                if (distance > distances[i])
+                {
+                    distance = distances[i];
+                    Path = allValidPaths[i];
+                }
+
+            }
         }
 
         public void GetPosition(NodePosition node, NodePosition lastNode, List<NodePosition> path)
@@ -160,47 +164,6 @@ namespace Project.Gameplay
             vertical = MathF.Sign(vertical);
 
             return new Vector2(horizontal, vertical);
-        }
-
-
-        public CoroutineManagement coroutine = new CoroutineManagement();
-        public IEnumerator Courotine()
-        {
-            int currentPath = 0;
-            while (true)
-            {
-                Path = Paths[currentPath];
-                yield return coroutine.Wait(200f);
-                currentPath++;
-                if (currentPath >= Paths.Count)
-                    currentPath = 0;
-            }
-
-            yield return null;
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-                if (CurrentNode.UpPosition != null)
-                    CurrentNode = CurrentNode.UpPosition;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-                if (CurrentNode.DownPosition != null)
-                    CurrentNode = CurrentNode.DownPosition;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-                if (CurrentNode.LeftPosition != null)
-                    CurrentNode = CurrentNode.LeftPosition;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-                if (CurrentNode.RightPosition != null)
-                    CurrentNode = CurrentNode.RightPosition;
-
-
-            coroutine.Update(gameTime);
-
-            base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
