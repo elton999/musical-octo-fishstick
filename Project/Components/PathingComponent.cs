@@ -53,10 +53,14 @@ namespace Project.Components
 
             PathReader.PathUpdate(this);
 
-            if (Path.Count > 0)
-                _movementComponent.AddDirection(Vector2.Normalize(Path[0].Position - GameObject.Position));
-            else
-                _movementComponent.AddDirection(Vector2.Normalize(playerPosition - GameObject.Position));
+            if (Path.Count > 0 && Path[0].Position.Length() > 0)
+            {
+                var direction = Path[0].Position - GameObject.Position;
+                direction = direction / direction.Length();
+                direction.X = float.IsNaN(direction.X) ? 0 : direction.X;
+                direction.Y = float.IsNaN(direction.Y) ? 0 : direction.Y;
+                _movementComponent.AddDirection(direction);
+            }
 
             base.UpdateData(gameTime);
         }
