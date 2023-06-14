@@ -34,9 +34,9 @@ namespace Project.Components
 
             for (int i = 0; i < Nodes.NodesPosition.Count; i++)
             {
-                float distance = Vector2.Distance(playerPosition, Nodes.NodesPosition[i].Position);
-
-                float currentDistance = Vector2.Distance(currentPosition, Nodes.NodesPosition[i].Position);
+                Vector2 nodePosition = Nodes.NodesPosition[i].Position;
+                float distance = Vector2.Distance(playerPosition, nodePosition);
+                float currentDistance = Vector2.Distance(currentPosition, nodePosition);
 
                 if (targetDistance > distance)
                 {
