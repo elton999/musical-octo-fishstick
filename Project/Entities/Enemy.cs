@@ -33,6 +33,7 @@ namespace Project.Entities
             AddComponent<RevertSpriteByVelocityComponent>();
             AddComponent<WalkAnimationComponent>();
             Pathing = AddComponent<PathingComponent>();
+            AddComponent<ActorToSolid>();
 
             Square.Scene = Scene;
             Square.size = new Point(4, 4);
