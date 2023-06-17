@@ -162,40 +162,38 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             {
                 Type type = GameObjectSelected.GetType();
                 foreach (FieldInfo fInfo in type.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
-                {
                     foreach (var attr in fInfo.CustomAttributes)
-                    {
                         if (attr.AttributeType == typeof(ShowEditorAttribute))
-                        {
-                            switch (fInfo.FieldType.ToString())
-                            {
-                                case "Microsoft.Xna.Framework.Vector2":
-                                    var vector2 = (Vector2)fInfo.GetValue(GameObjectSelected);
-                                    Fields.Field.DrawVector(fInfo.Name, ref vector2);
-                                    fInfo.SetValue(GameObjectSelected, vector2);
-                                    break;
-                                case "Microsoft.Xna.Framework.Vector3":
-                                    var vector3 = (Vector3)fInfo.GetValue(GameObjectSelected);
-                                    Fields.Field.DrawVector(fInfo.Name, ref vector3);
-                                    fInfo.SetValue(GameObjectSelected, vector3);
-                                    break;
-                                case "System.Single":
-                                    var floatValue = (float)fInfo.GetValue(GameObjectSelected);
-                                    Fields.Field.DrawFloat(fInfo.Name, ref floatValue);
-                                    fInfo.SetValue(GameObjectSelected, floatValue);
-                                    break;
-                                case "System.Boolean":
-                                    var boolValue = (bool)fInfo.GetValue(GameObjectSelected);
-                                    Fields.Field.DrawBoolean(fInfo.Name, ref boolValue);
-                                    fInfo.SetValue(GameObjectSelected, boolValue);
-                                    break;
-                            }
-
-                        }
-                    }
-                }
+                            DrawField(fInfo);
             }
             ImGui.End();
+        }
+
+        private void DrawField(FieldInfo fInfo)
+        {
+            switch (fInfo.FieldType.ToString())
+            {
+                case "Microsoft.Xna.Framework.Vector2":
+                    var vector2 = (Vector2)fInfo.GetValue(GameObjectSelected);
+                    Fields.Field.DrawVector(fInfo.Name, ref vector2);
+                    fInfo.SetValue(GameObjectSelected, vector2);
+                    break;
+                case "Microsoft.Xna.Framework.Vector3":
+                    var vector3 = (Vector3)fInfo.GetValue(GameObjectSelected);
+                    Fields.Field.DrawVector(fInfo.Name, ref vector3);
+                    fInfo.SetValue(GameObjectSelected, vector3);
+                    break;
+                case "System.Single":
+                    var floatValue = (float)fInfo.GetValue(GameObjectSelected);
+                    Fields.Field.DrawFloat(fInfo.Name, ref floatValue);
+                    fInfo.SetValue(GameObjectSelected, floatValue);
+                    break;
+                case "System.Boolean":
+                    var boolValue = (bool)fInfo.GetValue(GameObjectSelected);
+                    Fields.Field.DrawBoolean(fInfo.Name, ref boolValue);
+                    fInfo.SetValue(GameObjectSelected, boolValue);
+                    break;
+            }
         }
     }
 }
