@@ -41,8 +41,23 @@ namespace Project.Entities
             Square.SquareColor = Color.White;
             Square.Start();
 
+            ActorToSolidWhenFailComponent.OnAnySolidIsCreated += OnCreateSolidBlock;
+
             base.Start();
         }
+
+        public void OnCreateSolidBlock(Solid solid, Actor actor)
+        {
+            if (actor != this) return;
+
+            var animationComponent = solid.AddComponent<AnimationComponent>();
+            animationComponent.SetPath("Sprites/player_animation");
+            animationComponent.SetAnimation("fall");
+
+            Destroy();
+        }
+
+        public override void OnDestroy() => ActorToSolidWhenFailComponent.OnAnySolidIsCreated -= OnCreateSolidBlock;
 
         public override void Draw(SpriteBatch spriteBatch)
         {
