@@ -16,6 +16,15 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 200
+   },
+   {
+    "filename": "player 2.aseprite",
+    "frame": { "x": 32, "y": 0, "w": 16, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+    "sourceSize": { "w": 16, "h": 16 },
+    "duration": 200
    }
  ],
  "meta": {
@@ -23,12 +32,13 @@
   "version": "1.2.40-x64",
   "image": "player.png",
   "format": "RGBA8888",
-  "size": { "w": 32, "h": 16 },
+  "size": { "w": 48, "h": 16 },
   "scale": "1",
   "frameTags": [
    { "name": "walk", "from": 0, "to": 1, "direction": "forward" },
    { "name": "jump", "from": 0, "to": 0, "direction": "forward" },
-   { "name": "idle", "from": 1, "to": 1, "direction": "forward" }
+   { "name": "idle", "from": 1, "to": 1, "direction": "forward" },
+   { "name": "fall", "from": 2, "to": 2, "direction": "forward" }
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
