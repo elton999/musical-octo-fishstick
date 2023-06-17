@@ -17,7 +17,8 @@ namespace Project.Components
             if (_actor.Velocity.Length() > 0)
             {
                 int spriteSizeValue = MathF.Sign(_actor.Velocity.X);
-                _actor.spriteEffect = spriteSizeValue > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                if (spriteSizeValue != 0)
+                    _actor.spriteEffect = spriteSizeValue > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
 
             base.Update(gameTime);
