@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using ImGuiNET;
 using System.Reflection;
-using System.Diagnostics;
-using ldtk;
 
 namespace UmbrellaToolsKit.EditorEngine.Windows
 {
@@ -164,7 +161,7 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             if (GameObjectSelected != null)
             {
                 Type type = GameObjectSelected.GetType();
-                foreach (FieldInfo fInfo in type.GetFields())
+                foreach (FieldInfo fInfo in type.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
                 {
                     foreach (var attr in fInfo.CustomAttributes)
                     {
