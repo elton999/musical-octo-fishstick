@@ -8,7 +8,7 @@ namespace Project.Entities
     public class Player : Actor
     {
         public float Speed = 6f;
-        public float JumpForce = 200f;
+        public float JumpForce = 220f;
 
         public override void Start()
         {
@@ -18,7 +18,7 @@ namespace Project.Entities
 
             size = new Point(16, 16);
             Gravity2D = Vector2.UnitY * 30f;
-            MaxVelocity = 200f;
+            MaxVelocity = JumpForce;
 
             AddComponent<LadderComponent>();
             AddComponent<AnimationComponent>().SetPath("Sprites/player_animation");
