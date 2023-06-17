@@ -17,7 +17,8 @@ namespace UmbrellaToolsKit.Collision
         public override void UpdateData(GameTime gameTime)
         {
             base.UpdateData(gameTime);
-            Gravity((float)gameTime.ElapsedGameTime.TotalSeconds);
+            if (HasGravity)
+                Gravity((float)gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         public int Right { get => (int)(Position.X + size.X); }
@@ -33,6 +34,7 @@ namespace UmbrellaToolsKit.Collision
             { EDGES.BOTTOM_RIGHT, false },
         };
 
+        [ShowEditor] public bool HasGravity = true;
         [ShowEditor] public Vector2 Gravity2D = new Vector2(0, 8);
         [ShowEditor] public Vector2 Velocity = new Vector2(0, 0);
         [ShowEditor] public float GravityScale = 1;
