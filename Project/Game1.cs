@@ -41,6 +41,7 @@ namespace Project
             _assetManagement.Set<Enemy>("enemy", Layers.ENEMIES);
             _assetManagement.Set<Gameplay.Nodes>("node", Layers.FOREGROUND);
             _assetManagement.Set<Gameplay.Ladder>("ladder", Layers.MIDDLEGROUND);
+            _assetManagement.Set<Gameplay.Door>("door", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.Platform>("platform", Layers.MIDDLEGROUND);
 
             var scene = _gameManagement.SceneManagement.MainScene;
