@@ -16,6 +16,7 @@ namespace Project.Gameplay
         public override void Start()
         {
             tag = "Door";
+            HasGravity = false;
             size = new Point(16, 16);
 
             _square = new Square();
