@@ -39,8 +39,8 @@ namespace Project.Components
             SetSize();
             SetVisualSettings();
 
-            OnAnySolidIsCreated?.Invoke(_solid, _actor);
             GameObject.Scene.AddGameObject(_solid, Layers.ENEMIES);
+            OnAnySolidIsCreated?.Invoke(_solid, _actor);
         }
 
         private void CreateSolid()
