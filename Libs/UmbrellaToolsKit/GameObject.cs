@@ -80,7 +80,12 @@ namespace UmbrellaToolsKit
         public virtual void OnTriggerIn(string tag) { }
         public virtual void OnTriggerOut(string tag) { }
         public virtual void OnMouseOver() { }
-        public virtual void Destroy() => RemoveFromScene = true;
+        public virtual void Destroy()
+        {
+            RemoveFromScene = true;
+            OnDestroy();
+        }
+        public virtual void OnDestroy() { }
 
         public virtual Collision.Actor GetActor() => default(Collision.Actor);
         public virtual Collision.Solid GetSolid() => default(Collision.Solid);
@@ -108,7 +113,11 @@ namespace UmbrellaToolsKit
 
         public void EndDraw(SpriteBatch spriteBatch) => spriteBatch.End();
 
-        public virtual void Dispose() => GC.SuppressFinalize(this);
+        public virtual void Dispose()
+        {
+            OnDestroy();
+            GC.SuppressFinalize(this);
+        }
 
         public T AddComponent<T>() where T : IComponent
         {
