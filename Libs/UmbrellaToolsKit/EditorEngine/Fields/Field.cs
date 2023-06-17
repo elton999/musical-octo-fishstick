@@ -49,5 +49,7 @@ namespace UmbrellaToolsKit.EditorEngine.Fields
         public static void DrawFloat(string name, ref float value) => ImGui.InputFloat(name, ref value);
 
         public static void DrawInt(string name, ref int value) => ImGui.InputInt(name, ref value);
+
+        public static void DrawBoolean(string name, ref bool value) => ImGui.Checkbox(name, ref value);
     }
 }

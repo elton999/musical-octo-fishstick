@@ -187,6 +187,11 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
                                     Fields.Field.DrawFloat(fInfo.Name, ref floatValue);
                                     fInfo.SetValue(GameObjectSelected, floatValue);
                                     break;
+                                case "System.Boolean":
+                                    var boolValue = (bool)fInfo.GetValue(GameObjectSelected);
+                                    Fields.Field.DrawBoolean(fInfo.Name, ref boolValue);
+                                    fInfo.SetValue(GameObjectSelected, boolValue);
+                                    break;
                             }
 
                         }
