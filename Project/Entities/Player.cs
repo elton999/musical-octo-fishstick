@@ -7,7 +7,7 @@ namespace Project.Entities
 {
     public class Player : Actor
     {
-        public float Speed = 6f;
+        public float Speed = 8f;
         public float JumpForce = 220f;
 
         public override void Start()
