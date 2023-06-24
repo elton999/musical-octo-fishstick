@@ -189,21 +189,9 @@ namespace UmbrellaToolsKit.Collision
             return rt;
         }
 
-        public virtual bool isRiding(Solid solid)
-        {
-            if (solid.check(size, Position + Vector2.UnitY))
-                return true;
+        public virtual bool isRiding(Solid solid) => solid.check(size, Position + Vector2.UnitY);
 
-            return false;
-        }
-
-        public virtual bool isRidingGrid(Grid grid)
-        {
-            if (grid.checkOverlap(size, Position + Vector2.UnitY, this))
-                return true;
-
-            return false;
-        }
+        public virtual bool isRidingGrid(Grid grid) => grid.checkOverlap(size, Position + Vector2.UnitY, this);
 
         public virtual void squish(string tag = null) { }
 

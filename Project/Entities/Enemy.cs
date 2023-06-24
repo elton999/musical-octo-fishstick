@@ -8,7 +8,7 @@ namespace Project.Entities
 {
     public class Enemy : Actor
     {
-        public float Speed = 6f;
+        public float Speed = 6.5f;
         public float JumpForce = 200f;
 
         public Square Square = new Square();
@@ -28,12 +28,12 @@ namespace Project.Entities
 
             AddComponent<LadderComponent>();
             AddComponent<AnimationComponent>().SetPath("Sprites/player_animation");
-            AddComponent<JumpAnimation>();
+            AddComponent<JumpAnimation>().GroundBuffer = Vector2.UnitY * 4f;
             AddComponent<MovementComponent>().SetSpeed(Speed);
             AddComponent<RevertSpriteByVelocityComponent>();
             AddComponent<WalkAnimationComponent>();
-            Pathing = AddComponent<PathingComponent>();
             AddComponent<ActorToSolidWhenFailComponent>();
+            Pathing = AddComponent<PathingComponent>();
 
             Square.Scene = Scene;
             Square.size = new Point(4, 4);

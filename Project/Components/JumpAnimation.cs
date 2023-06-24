@@ -13,6 +13,7 @@ namespace Project.Components
         private string _jumpAnimation = "jump";
 
         public bool IsGrounded = false;
+        public Vector2 GroundBuffer = Vector2.UnitY;
 
         public override void Start()
         {
@@ -40,11 +41,11 @@ namespace Project.Components
             IsGrounded = false;
 
             foreach (Solid solid in _actor.Scene.AllSolids)
-                if (_actor.isRiding(solid)) IsGrounded = true;
+                if (solid.check(_actor.size, _actor.Position + GroundBuffer)) IsGrounded = true;
 
             if (_actor.Scene.Grid == null) return;
 
-            if (_actor.isRidingGrid(_actor.Scene.Grid))
+            if (_actor.Scene.Grid.checkOverlap(_actor.size, _actor.Position + GroundBuffer, _actor))
                 IsGrounded = true;
         }
     }

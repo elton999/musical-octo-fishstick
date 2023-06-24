@@ -11,6 +11,7 @@ namespace Project.Pathing
             pathble.Paths.Clear();
 
             var firstPath = new List<NodePosition>();
+            firstPath.Add(pathble.StartNode);
             pathble.Paths.Add(firstPath);
 
             var newNodePathing = new NodePathing()
