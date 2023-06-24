@@ -8,7 +8,7 @@ namespace Project.Entities
 {
     public class Enemy : Actor
     {
-        public float Speed = 6.5f;
+        public float Speed = 6f;
         public float JumpForce = 200f;
 
         public Square Square = new Square();
@@ -53,6 +53,8 @@ namespace Project.Entities
             var animationComponent = solid.AddComponent<AnimationComponent>();
             animationComponent.SetPath("Sprites/player_animation");
             animationComponent.SetAnimation("fall");
+
+            solid.Body = new Rectangle(Point.Zero, size);
 
             Destroy();
         }
