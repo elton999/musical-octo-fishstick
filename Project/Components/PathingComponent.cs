@@ -68,7 +68,7 @@ namespace Project.Components
 
             var direction = Path[0].Position - GameObject.Position;
 
-            if (Path.Count > 2)
+            if (Path.Count > 1)
             {
                 float characterFirstNodeDotX = Vector2.Dot((GameObject.Position - Path[0].Position) * Vector2.UnitX, Vector2.UnitX);
                 characterFirstNodeDotX = MathF.Sign(characterFirstNodeDotX);
