@@ -18,6 +18,7 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             BarEdtior.OnOpenMainEditor += SetAsMainWindow;
             _gameManagement = gameManagement;
             Log.OnLog += Logs.Add;
+            Log.OnLog += System.Console.WriteLine;
         }
 
         public void SetAsMainWindow()
