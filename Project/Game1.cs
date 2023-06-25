@@ -13,6 +13,9 @@ namespace Project
         private AssetManagement _assetManagement;
         private GameManagement _gameManagement;
 
+        private int _currentLevel = 1;
+        private int _maxLevel = 2;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -39,14 +42,46 @@ namespace Project
             _assetManagement = new AssetManagement();
             _assetManagement.Set<Player>("player", Layers.PLAYER);
             _assetManagement.Set<Enemy>("enemy", Layers.ENEMIES);
+
             _assetManagement.Set<Gameplay.Nodes>("node", Layers.FOREGROUND);
             _assetManagement.Set<Gameplay.Ladder>("ladder", Layers.MIDDLEGROUND);
+            _assetManagement.Set<Gameplay.Spike>("spike", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.Door>("door", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.Platform>("platform", Layers.MIDDLEGROUND);
+            LoadScene();
 
+            Player.OnDie += ReloadLevel;
+        }
+
+        public void ReloadLevel()
+        {
+            DestroyCurrentLevel();
+            LoadScene();
+        }
+
+        public void LoadNextLevel()
+        {
+            DestroyCurrentLevel();
+            _currentLevel++;
+            LoadScene();
+        }
+
+        public void DestroyCurrentLevel()
+        {
             var scene = _gameManagement.SceneManagement.MainScene;
             scene.Dispose();
-            scene.SetLevel(1);
+        }
+
+        public void LoadScene()
+        {
+            var scene = _gameManagement.SceneManagement.MainScene;
+            LoadLevel(scene);
+        }
+
+        public void LoadLevel(Scene scene)
+        {
+            scene.Dispose();
+            scene.SetLevel(_currentLevel);
             scene.Camera.Position = scene.Sizes.ToVector2() / 2f;
         }
 
