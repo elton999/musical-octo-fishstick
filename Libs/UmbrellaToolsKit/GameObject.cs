@@ -83,6 +83,7 @@ namespace UmbrellaToolsKit
         public virtual void Destroy()
         {
             RemoveFromScene = true;
+            if (Components != null) Components.Destroy();
             OnDestroy();
         }
         public virtual void OnDestroy() { }
@@ -116,6 +117,7 @@ namespace UmbrellaToolsKit
         public virtual void Dispose()
         {
             OnDestroy();
+            if (Components != null) Components.Destroy();
             GC.SuppressFinalize(this);
         }
 
