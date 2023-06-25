@@ -40,5 +40,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\Door.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\HealthComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\DeathAnimationComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\DamagerComponent.cs" />
   </ItemGroup>
 </Project>
