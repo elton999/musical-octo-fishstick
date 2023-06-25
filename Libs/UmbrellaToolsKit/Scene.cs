@@ -339,7 +339,8 @@ namespace UmbrellaToolsKit
         public void Dispose()
         {
             LevelReady = false;
-            _BackBuffer.Dispose();
+            if (_BackBuffer != null)
+                _BackBuffer.Dispose();
             _BackBuffer = null;
 
             foreach (List<GameObject> layer in SortLayers)
@@ -357,6 +358,7 @@ namespace UmbrellaToolsKit
             AllActors.Clear();
 
             if (Grid != null) Grid.Dispose();
+            Grid = null;
 
             GC.SuppressFinalize(this);
             GC.Collect();

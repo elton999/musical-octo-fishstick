@@ -107,7 +107,7 @@ namespace UmbrellaToolsKit.TileMap
         private static void SetGrid(Scene scene, Ogmo.TileMap tileMap, Ogmo.TileMapLayers layer)
         {
             scene.Grid = new Grid();
-            scene.Grid.GridCollides = layer.grid2D;
+            scene.Grid.GridCollides = new List<List<string>>(layer.grid2D);
             scene.Grid.Scene = scene;
             scene.Grid.Origin = new Vector2(tileMap.offsetX, tileMap.offsetY);
         }
@@ -134,7 +134,7 @@ namespace UmbrellaToolsKit.TileMap
         {
             Layer layerTiles = CreateLayer(scene, tilemapSprite);
             layerTiles.Origin = new Vector2(tileMap.offsetX, tileMap.offsetY);
-            layerTiles.tiles = layer.dataCoords2D;
+            layerTiles.tiles = new List<List<List<int>>>(layer.dataCoords2D);
         }
 
         private static void SetTiles(Scene scene, Texture2D tilemapSprite, ldtk.LayerInstance layer)

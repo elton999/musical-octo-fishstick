@@ -15,6 +15,7 @@ namespace Project
 
         private int _currentLevel = 1;
         private int _maxLevel = 2;
+        private bool _loadScene = false;
 
         public Game1()
         {
@@ -53,17 +54,18 @@ namespace Project
             Player.OnDie += ReloadLevel;
         }
 
-        public void ReloadLevel()
-        {
-            DestroyCurrentLevel();
-            LoadScene();
-        }
+        public void ReloadLevel() => _loadScene = true;
 
         public void LoadNextLevel()
         {
-            DestroyCurrentLevel();
+            _loadScene = true;
             _currentLevel++;
+        }
+
+        public void UpdateScene()
+        {
             LoadScene();
+            _loadScene = false;
         }
 
         public void DestroyCurrentLevel()
@@ -91,8 +93,9 @@ namespace Project
                 Exit();
 
             _gameManagement.Update(gameTime);
-
             base.Update(gameTime);
+
+            if (_loadScene) UpdateScene();
         }
 
         protected override void Draw(GameTime gameTime)

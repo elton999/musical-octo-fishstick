@@ -58,7 +58,7 @@ namespace Project.Entities
         {
             yield return _coroutine.Wait(300.0f);
 
-            //OnDie?.Invoke();
+            OnDie?.Invoke();
 
             yield return null;
         }
