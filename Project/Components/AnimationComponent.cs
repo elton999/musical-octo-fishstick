@@ -9,6 +9,7 @@ namespace Project.Components
         private string _currentAnimation = "";
         private string _animationSettingsPath;
         private AsepriteAnimation _animation;
+        private AsepriteAnimation.AnimationDirection _animationDirection;
 
         public void SetPath(string animationSettingsPath)
         {
@@ -27,7 +28,11 @@ namespace Project.Components
             base.Update(gameTime);
         }
 
-        public void SetAnimation(string animationName) => _currentAnimation = animationName;
+        public void SetAnimation(string animationName, AsepriteAnimation.AnimationDirection direction = AsepriteAnimation.AnimationDirection.LOOP)
+        {
+            _animationDirection = direction;
+            _currentAnimation = animationName;
+        }
 
     }
 }

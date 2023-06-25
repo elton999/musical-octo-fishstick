@@ -8,7 +8,7 @@ namespace Project.Components
         public float HP = 10.0f;
         public bool IsAlive => HP > 0.0f;
         public static event Action<GameObject> OnAnyEntityDie;
-        public static event Action OnDie;
+        public event Action OnDie;
 
         public void TakeDamage(float damage)
         {
