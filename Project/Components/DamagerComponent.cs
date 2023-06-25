@@ -26,7 +26,8 @@ namespace Project.Components
         public void SetDamage(Actor actor)
         {
             var health = actor.GetComponent<HealthComponent>();
-            health.TakeDamage(_damageValue);
+            if (health != null)
+                health.TakeDamage(_damageValue);
         }
     }
 }
