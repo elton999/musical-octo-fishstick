@@ -52,6 +52,15 @@ namespace Project
             LoadScene();
 
             Player.OnDie += ReloadLevel;
+            Gameplay.Door.OnEnterDoor += LoadNextLevel;
+        }
+
+        protected override void UnloadContent()
+        {
+            Player.OnDie += ReloadLevel;
+            Gameplay.Door.OnEnterDoor += LoadNextLevel;
+
+            base.UnloadContent();
         }
 
         public void ReloadLevel() => _loadScene = true;
@@ -60,6 +69,8 @@ namespace Project
         {
             _loadScene = true;
             _currentLevel++;
+
+            if (_currentLevel > _maxLevel) _currentLevel = 1;
         }
 
         public void UpdateScene()
