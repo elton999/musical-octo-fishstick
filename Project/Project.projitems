@@ -42,5 +42,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\DeathAnimationComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\DamagerComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\Spike.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Gameplay\Key.cs" />
   </ItemGroup>
 </Project>
