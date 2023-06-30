@@ -26,6 +26,7 @@ namespace Project.Entities
 
             SpriteColor = Color.Red;
 
+            AddComponent<DamagerComponent>();
             AddComponent<LadderComponent>();
             AddComponent<AnimationComponent>().SetPath("Sprites/player_animation");
             AddComponent<JumpAnimation>().GroundBuffer = Vector2.UnitY * 4f;
