@@ -8,6 +8,8 @@ namespace Project.Gameplay
 {
     public class Key : Actor
     {
+        public CollectableComponent CollectableComponent;
+
         public override void Start()
         {
             Tag = "Key";
@@ -19,8 +21,20 @@ namespace Project.Gameplay
             Door.HasKeys = true;
 
             AddComponent<FloatingComponent>();
+            CollectableComponent = AddComponent<CollectableComponent>();
+
+            CollectableComponent.OnCollectItem += OnCollected;
 
             base.Start();
+        }
+
+        public override void OnDestroy() => CollectableComponent.OnCollectItem -= OnCollected;
+
+        public void OnCollected()
+        {
+            Components.Remove(CollectableComponent);
+            Project.Entities.Player.CollectedKey = true;
+            AddComponent<FollowingObjectComponent>().Target = Scene.Players[0];
         }
     }
 }
