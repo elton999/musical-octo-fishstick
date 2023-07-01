@@ -1,5 +1,5 @@
-using System.Collections;
 using System;
+using System.Collections;
 using Project.Components;
 using UmbrellaToolsKit;
 using UmbrellaToolsKit.Collision;
@@ -17,6 +17,8 @@ namespace Project.Entities
 
         public float Speed = 8f;
         public float JumpForce = 220f;
+
+        public static bool CollectedKey = false;
 
         public override void Start()
         {
@@ -50,16 +52,18 @@ namespace Project.Entities
             base.Update(gameTime);
         }
 
-        public override void OnDestroy() => _health.OnDie -= OnPlayerDie;
+        public override void OnDestroy()
+        {
+            _health.OnDie -= OnPlayerDie;
+            CollectedKey = false;
+        }
 
         public void OnPlayerDie() => _coroutine.StarCoroutine(OnDieDelay());
 
         public IEnumerator OnDieDelay()
         {
             yield return _coroutine.Wait(300.0f);
-
             OnDie?.Invoke();
-
             yield return null;
         }
     }

@@ -11,7 +11,10 @@ namespace Project.Gameplay
         [ShowEditor] private bool _playerIsOnDoor = false;
         private Square _square;
 
+        public bool CanOpenDoor => !HasKeys || HasKeys && Project.Entities.Player.CollectedKey;
+
         public static event Action OnEnterDoor;
+        public static bool HasKeys = false;
 
         public override void Start()
         {
@@ -28,9 +31,13 @@ namespace Project.Gameplay
             base.Start();
         }
 
+        public override void OnDestroy() => HasKeys = false;
+
         public void CheckPlayer()
         {
             if (_playerIsOnDoor) return;
+
+            if (!CanOpenDoor) return;
 
             if (!overlapCheck(Scene.Players[0].GetActor())) return;
 

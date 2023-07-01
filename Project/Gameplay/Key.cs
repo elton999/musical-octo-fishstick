@@ -10,9 +10,13 @@ namespace Project.Gameplay
     {
         public override void Start()
         {
+            Tag = "Key";
+
             HasGravity = false;
             Sprite = Scene.Content.Load<Texture2D>("Sprites/key");
             size = new Point(8);
+
+            Door.HasKeys = true;
 
             AddComponent<FloatingComponent>();
 
