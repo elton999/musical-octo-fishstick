@@ -36,8 +36,10 @@ namespace Project.Components
 
         public override void UpdateData(GameTime gameTime)
         {
-            if (!_lastFrameGround && _jumpAnimation.IsGrounded && _actor.Velocity.Y > 0)
-                OnSmash();
+            bool isFalling = _actor.Velocity.Y > 0;
+            bool onTouchGround = !_lastFrameGround && _jumpAnimation.IsGrounded;
+
+            if (onTouchGround && isFalling) OnSmash();
 
             _lastFrameGround = _jumpAnimation.IsGrounded;
             base.UpdateData(gameTime);
