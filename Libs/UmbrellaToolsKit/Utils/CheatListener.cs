@@ -17,7 +17,11 @@ namespace UmbrellaToolsKit.Utils
                     cheat.Item2?.Invoke();
         }
 
-        public void AddCheat(Keys key, Action action = null) => _cheatList.Add(new Tuple<Keys, Action>(key, action));
+        public void AddCheat(Keys key, Action action = null)
+        {
+            KeyBoardHandler.AddInput(key);
+            _cheatList.Add(new Tuple<Keys, Action>(key, action));
+        }
 
         public override void OnDestroy() => _cheatList.Clear();
     }

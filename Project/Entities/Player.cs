@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using Project.Components;
 using UmbrellaToolsKit;
+using UmbrellaToolsKit.Utils;
 using UmbrellaToolsKit.Collision;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Entities
@@ -15,6 +17,8 @@ namespace Project.Entities
         private HealthComponent _health;
         private CoroutineManagement _dieCoroutine = new CoroutineManagement();
         private CoroutineManagement _spriteCoroutine = new CoroutineManagement();
+
+        private CheatListener _playerCheat;
 
         public float Speed = 8f;
         public float JumpForce = 220f;
@@ -50,6 +54,10 @@ namespace Project.Entities
             AddComponent<SmashSpriteOnFailComponent>().SetScaler(this);
 
             _health.OnDie += OnPlayerDie;
+
+            _playerCheat = new CheatListener();
+            _playerCheat.AddCheat(Keys.F1, _health.BeImmortal);
+            Scene.AddGameObject(_playerCheat);
 
             base.Start();
         }

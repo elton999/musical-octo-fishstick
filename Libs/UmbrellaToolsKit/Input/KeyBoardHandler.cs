@@ -53,12 +53,16 @@ namespace UmbrellaToolsKit.Input
         public static void AddInput(Keys key)
         {
             var status = GetStatus;
+
+            if (_keysStatus.ContainsKey(key)) return;
             _keysStatus.Add(key, new Tuple<KeyState, KeyState>(KeyState.Up, KeyState.Up));
         }
 
         public static void AddInput(Keys key, Tuple<KeyState, KeyState> keyStatus)
         {
             var status = GetStatus;
+
+            if (_keysStatus.ContainsKey(key)) return;
             _keysStatus.Add(key, keyStatus);
         }
 
