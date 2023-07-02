@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using UmbrellaToolsKit;
+using UmbrellaToolsKit.Input;
 
 namespace Project.Components
 {
@@ -14,12 +15,12 @@ namespace Project.Components
         {
             Vector2 direction = Vector2.Zero;
 
-            bool left = Keyboard.GetState().IsKeyDown(Keys.Left);
-            bool right = Keyboard.GetState().IsKeyDown(Keys.Right);
+            bool left = KeyBoardHandler.KeyDown(Keys.Left);
+            bool right = KeyBoardHandler.KeyDown(Keys.Right);
             direction.X = left ? -1 : right ? 1 : 0;
 
-            bool up = Keyboard.GetState().IsKeyDown(Keys.Up);
-            bool down = Keyboard.GetState().IsKeyDown(Keys.Down);
+            bool up = KeyBoardHandler.KeyDown(Keys.Up);
+            bool down = KeyBoardHandler.KeyDown(Keys.Down);
 
             direction.Y = up ? -1 : down ? 1 : 0;
 

@@ -1,4 +1,5 @@
 ﻿using UmbrellaToolsKit;
+using UmbrellaToolsKit.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -51,6 +52,12 @@ namespace Project
 
             _assetManagement.Set<Gameplay.Door>("door", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.Key>("key", Layers.FOREGROUND);
+
+            KeyBoardHandler.AddInput(Keys.Left);
+            KeyBoardHandler.AddInput(Keys.Right);
+            KeyBoardHandler.AddInput(Keys.Up);
+            KeyBoardHandler.AddInput(Keys.Down);
+            KeyBoardHandler.AddInput(Keys.Z);
 
             LoadScene();
 

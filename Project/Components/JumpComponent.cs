@@ -1,4 +1,5 @@
 using UmbrellaToolsKit;
+using UmbrellaToolsKit.Input;
 using UmbrellaToolsKit.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -10,7 +11,6 @@ namespace Project.Components
         private Actor _actor;
         private float _jumpForce;
         private bool _jump = false;
-        private bool _jumpButtonPressed = false;
         private bool _canJump { get => _jumpAnimation.IsGrounded && _actor.Gravity2D.Length() > 0; }
 
         private JumpAnimation _jumpAnimation;
@@ -25,13 +25,8 @@ namespace Project.Components
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Z) && !_jumpButtonPressed && _canJump && !_jump)
-            {
+            if (KeyBoardHandler.KeyPressed(Keys.Z) && _canJump && !_jump)
                 _jump = true;
-                _jumpButtonPressed = true;
-            }
-
-            _jumpButtonPressed = !Keyboard.GetState().IsKeyUp(Keys.Z);
             base.Update(gameTime);
         }
 
