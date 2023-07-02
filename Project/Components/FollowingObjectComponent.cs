@@ -22,7 +22,7 @@ namespace Project.Components
             if (!CanFollow) return;
 
             if (_oldPosition.Length() == 0)
-                _oldPosition = Target.Position;
+                _oldPosition = GameObject.Position;
 
             float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
             GameObject.Position = _oldPosition;

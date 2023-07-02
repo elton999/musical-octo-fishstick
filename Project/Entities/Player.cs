@@ -13,7 +13,8 @@ namespace Project.Entities
         public static event Action OnDie;
 
         private HealthComponent _health;
-        private CoroutineManagement _coroutine = new CoroutineManagement();
+        private CoroutineManagement _dieCoroutine = new CoroutineManagement();
+        private CoroutineManagement _spriteCoroutine = new CoroutineManagement();
 
         public float Speed = 8f;
         public float JumpForce = 220f;
@@ -48,7 +49,8 @@ namespace Project.Entities
 
         public override void Update(GameTime gameTime)
         {
-            _coroutine.Update(gameTime);
+            _dieCoroutine.Update(gameTime);
+            _spriteCoroutine.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -58,11 +60,11 @@ namespace Project.Entities
             CollectedKey = false;
         }
 
-        public void OnPlayerDie() => _coroutine.StarCoroutine(OnDieDelay());
+        public void OnPlayerDie() => _dieCoroutine.StarCoroutine(OnDieDelay());
 
         public IEnumerator OnDieDelay()
         {
-            yield return _coroutine.Wait(300.0f);
+            yield return _dieCoroutine.Wait(300.0f);
             OnDie?.Invoke();
             yield return null;
         }

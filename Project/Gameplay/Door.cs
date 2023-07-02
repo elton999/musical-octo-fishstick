@@ -1,4 +1,5 @@
 using System;
+using Project.Entities;
 using UmbrellaToolsKit;
 using UmbrellaToolsKit.Sprite;
 using UmbrellaToolsKit.Collision;
@@ -11,7 +12,7 @@ namespace Project.Gameplay
         [ShowEditor] private bool _playerIsOnDoor = false;
         private Square _square;
 
-        public bool CanOpenDoor => !HasKeys || HasKeys && Project.Entities.Player.CollectedKey;
+        public bool CanOpenDoor => !HasKeys || HasKeys && Player.CollectedKey;
 
         public static event Action OnEnterDoor;
         public static bool HasKeys = false;
@@ -47,7 +48,6 @@ namespace Project.Gameplay
 
         public override void UpdateData(GameTime gameTime)
         {
-
             CheckPlayer();
             base.UpdateData(gameTime);
         }

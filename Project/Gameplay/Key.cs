@@ -3,6 +3,7 @@ using UmbrellaToolsKit.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Components;
+using Project.Entities;
 
 namespace Project.Gameplay
 {
@@ -33,7 +34,7 @@ namespace Project.Gameplay
         public void OnCollected()
         {
             Components.Remove(CollectableComponent);
-            Project.Entities.Player.CollectedKey = true;
+            Player.CollectedKey = true;
             AddComponent<FollowingObjectComponent>().Target = Scene.Players[0];
         }
     }
