@@ -1,5 +1,6 @@
 using System;
 using UmbrellaToolsKit.Input;
+using UmbrellaToolsKit.EditorEngine;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
@@ -14,7 +15,13 @@ namespace UmbrellaToolsKit.Utils
         {
             foreach (var cheat in _cheatList)
                 if (KeyBoardHandler.KeyPressed(cheat.Item1))
-                    cheat.Item2?.Invoke();
+                    Execute(cheat);
+        }
+
+        public static void Execute(Tuple<Keys, Action> cheat)
+        {
+            Log.Write("Executing cheat");
+            cheat.Item2?.Invoke();
         }
 
         public void AddCheat(Keys key, Action action = null)
