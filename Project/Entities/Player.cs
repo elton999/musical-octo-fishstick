@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Entities
 {
-    public class Player : Actor
+    public class Player : Actor, IScalableVector
     {
         public static event Action OnDie;
 
@@ -18,6 +18,9 @@ namespace Project.Entities
 
         public float Speed = 8f;
         public float JumpForce = 220f;
+
+        public Vector2 ScaleVector { get; set; }
+        public Vector2 OffsetVector { get; set; }
 
         public static bool CollectedKey = false;
 
@@ -31,6 +34,9 @@ namespace Project.Entities
             Gravity2D = Vector2.UnitY * 30f;
             MaxVelocity = JumpForce;
 
+            ScaleVector = Vector2.One;
+            OffsetVector = Vector2.Zero;
+
             _health = AddComponent<HealthComponent>();
             AddComponent<AnimationComponent>().SetPath("Sprites/player_animation");
             AddComponent<DeathAnimationComponent>();
@@ -41,10 +47,20 @@ namespace Project.Entities
             AddComponent<RevertSpriteByVelocityComponent>();
             AddComponent<WalkAnimationComponent>();
             AddComponent<JumpComponent>().SetJumpForce(JumpForce);
+            AddComponent<SmashSpriteOnFailComponent>().SetScaler(this);
 
             _health.OnDie += OnPlayerDie;
 
             base.Start();
+        }
+
+        public void OnPlayerDie() => _dieCoroutine.StarCoroutine(OnDieDelay());
+
+        public IEnumerator OnDieDelay()
+        {
+            yield return _dieCoroutine.Wait(300.0f);
+            OnDie?.Invoke();
+            yield return null;
         }
 
         public override void Update(GameTime gameTime)
@@ -60,13 +76,10 @@ namespace Project.Entities
             CollectedKey = false;
         }
 
-        public void OnPlayerDie() => _dieCoroutine.StarCoroutine(OnDieDelay());
-
-        public IEnumerator OnDieDelay()
+        public override void DrawSprite(SpriteBatch spriteBatch)
         {
-            yield return _dieCoroutine.Wait(300.0f);
-            OnDie?.Invoke();
-            yield return null;
+            if (Sprite != null)
+                spriteBatch.Draw(Sprite, Position, Body.IsEmpty ? null : Body, SpriteColor * Transparent, Rotation, Origin + OffsetVector, ScaleVector, spriteEffect, 0);
         }
     }
 }
