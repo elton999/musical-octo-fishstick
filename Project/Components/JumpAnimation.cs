@@ -12,8 +12,8 @@ namespace Project.Components
 
         private string _jumpAnimation = "jump";
 
-        public bool IsGrounded = false;
-        public Vector2 GroundBuffer = Vector2.UnitY;
+        [ShowEditor] public bool IsGrounded = false;
+        [ShowEditor] public Vector2 GroundBuffer = Vector2.UnitY;
 
         public override void Start()
         {

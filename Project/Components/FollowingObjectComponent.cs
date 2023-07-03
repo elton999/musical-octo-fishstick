@@ -8,8 +8,8 @@ namespace Project.Components
         private Vector2 _oldPosition;
 
         public GameObject Target;
-        public float MaxDistance = 8f;
-        public float Speed = 4f;
+        [ShowEditor] public float MaxDistance = 8f;
+        [ShowEditor] public float Speed = 4f;
 
         public float CurrentDistance => Vector2.Distance(GameObject.Position, Target.Position);
         public bool CanFollow => CurrentDistance >= MaxDistance;

@@ -7,9 +7,9 @@ namespace Project.Components
 {
     public class CollectableComponent : Component
     {
-        private string _tagName = "Player";
+        [ShowEditor] private string _tagName = "Player";
         private Actor _actor;
-        private bool _itemCollected = false;
+        [ShowEditor] private bool _itemCollected = false;
 
         public Action OnCollectItem;
 

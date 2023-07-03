@@ -6,7 +6,7 @@ namespace Project.Components
 {
     public class AnimationComponent : Component
     {
-        private string _currentAnimation = "";
+        [ShowEditor] private string _currentAnimation = "";
         private string _animationSettingsPath;
         private AsepriteAnimation _animation;
         private AsepriteAnimation.AnimationDirection _animationDirection;

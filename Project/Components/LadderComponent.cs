@@ -8,8 +8,8 @@ namespace Project.Components
     {
         private Actor _actor;
         private Vector2 _gravityBackup;
-        public bool IsInTheLadder = false;
-        public bool CanClimbLadder = false;
+        [ShowEditor] public bool IsInTheLadder = false;
+        [ShowEditor] public bool CanClimbLadder = false;
 
         public override void Start()
         {

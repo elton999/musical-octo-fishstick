@@ -13,7 +13,7 @@ namespace Project.Components
 
         private string _idleAnimation = "idle";
         private string _walkAnimation = "walk";
-        private string _currentAnimation;
+        [ShowEditor] private string _currentAnimation;
 
         public override void Start()
         {
