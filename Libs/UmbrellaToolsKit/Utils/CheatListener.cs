@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UmbrellaToolsKit.Input;
 using UmbrellaToolsKit.EditorEngine;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
@@ -20,7 +20,7 @@ namespace UmbrellaToolsKit.Utils
 
         public static void Execute(Tuple<Keys, Action> cheat)
         {
-            Log.Write("Executing cheat");
+            Log.Write($"Executing cheat {cheat.Item2.Method.ToString()}");
             cheat.Item2?.Invoke();
         }
 
