@@ -50,6 +50,8 @@ namespace UmbrellaToolsKit.EditorEngine.Fields
 
         public static void DrawInt(string name, ref int value) => ImGui.InputInt(name, ref value);
 
+        public static void DrawString(string name, ref string value) => ImGui.InputText(name, ref value, 255);
+
         public static void DrawBoolean(string name, ref bool value) => ImGui.Checkbox(name, ref value);
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using ImGuiNET;
 using System.Reflection;
@@ -209,6 +207,11 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
                     var floatValue = (float)fInfo.GetValue(prop);
                     Fields.Field.DrawFloat(fInfo.Name, ref floatValue);
                     fInfo.SetValue(prop, floatValue);
+                    break;
+                case "System.String":
+                    var stringValue = (string)fInfo.GetValue(prop);
+                    Fields.Field.DrawString(fInfo.Name, ref stringValue);
+                    fInfo.SetValue(prop, stringValue);
                     break;
                 case "System.Boolean":
                     var boolValue = (bool)fInfo.GetValue(prop);
