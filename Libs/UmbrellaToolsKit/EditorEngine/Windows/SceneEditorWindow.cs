@@ -67,7 +67,7 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
 
             ImGui.End();
 
-            ShowGameObjectProprietes(right);
+            ShowGameObjectProprieties(right);
             ShowSceneLayers(left);
             ShowEditorView(iddock);
             ShowConsole(bottom);
@@ -91,12 +91,12 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
 
         public void RenderEditorView()
         {
-            var sceneRendered = _gameManagement.SceneManagement.MainScene.SceneRendered;
-            var backBufferSize = new Vector2(sceneRendered.Width, sceneRendered.Height);
+            var sceneRendered = _gameManagement.SceneManagement.MainScene.Sizes;
+            var backBufferSize = new Vector2(sceneRendered.X, sceneRendered.Y);
 
             float xScale = _windowSize.X / backBufferSize.X;
             float yScale = _windowSize.Y / backBufferSize.Y;
-            float backBuffer_scale = _windowSize.X > _windowSize.Y ? xScale : yScale;
+            float backBuffer_scale = _windowSize.X < _windowSize.Y ? xScale : yScale;
 
             float backBuffer_Position_x = _windowPosition.X;
             float backBuffer_Position_y = _windowPosition.Y;
@@ -119,8 +119,10 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             if (ImGui.Button("Clear"))
                 Logs.Clear();
 
+            ImGui.BeginChild("Console Text");
             foreach (string line in Logs)
                 ImGui.TextUnformatted(line);
+            ImGui.EndChild();
 
             ImGui.End();
         }
@@ -130,7 +132,7 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             ImGui.SetNextWindowDockID(left, ImGuiCond.Once);
             ImGui.Begin("Layers");
             ImGui.SetWindowFontScale(1.2f);
-            if (ImGui.TreeNode("Forenground"))
+            if (ImGui.TreeNode("Foreground"))
                 ShowGameObjectFromLayer(_gameManagement.SceneManagement.MainScene.Foreground);
             if (ImGui.TreeNode("Player"))
                 ShowGameObjectFromLayer(_gameManagement.SceneManagement.MainScene.Players);
@@ -153,13 +155,18 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             ImGui.Unindent();
         }
 
-        private void ShowGameObjectProprietes(uint right)
+        private void ShowGameObjectProprieties(uint right)
         {
             ImGui.SetNextWindowDockID(right, ImGuiCond.Once);
             ImGui.Begin("Game Object props");
-            ImGui.SetWindowFontScale(1.2f);
             if (GameObjectSelected != null)
             {
+                ImGui.SetWindowFontScale(1.5f);
+                ImGui.Text(GameObjectSelected.tag);
+                ImGui.Spacing();
+                ImGui.Spacing();
+                ImGui.SetWindowFontScale(1.2f);
+
                 DrawAllFields(GameObjectSelected);
 
                 ImGui.Spacing();
