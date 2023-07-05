@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using UmbrellaToolsKit.EditorEngine.Attributes;
 
 namespace UmbrellaToolsKit.Collision
 {
@@ -34,13 +35,13 @@ namespace UmbrellaToolsKit.Collision
             { EDGES.BOTTOM_RIGHT, false },
         };
 
-        [ShowEditor] public bool HasGravity = true;
-        [ShowEditor] public Vector2 Gravity2D = new Vector2(0, 8);
-        [ShowEditor] public Vector2 Velocity = new Vector2(0, 0);
-        [ShowEditor] public float GravityScale = 1;
-        [ShowEditor] public float GravityFallMultiplier = 0.5f;
-        [ShowEditor] public float MaxVelocity = 0.5f;
-        [ShowEditor] public bool YMaxVelocity = true;
+        [ShowEditor, Category("Actor")] public bool HasGravity = true;
+        [ShowEditor, Category("Actor")] public Vector2 Gravity2D = new Vector2(0, 8);
+        [ShowEditor, Category("Actor")] public Vector2 Velocity = new Vector2(0, 0);
+        [ShowEditor, Category("Actor")] public float GravityScale = 1;
+        [ShowEditor, Category("Actor")] public float GravityFallMultiplier = 0.5f;
+        [ShowEditor, Category("Actor")] public float MaxVelocity = 0.5f;
+        [ShowEditor, Category("Actor")] public bool YMaxVelocity = true;
 
         public void SetFalseAllEdgeCollision()
         {

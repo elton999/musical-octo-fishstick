@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using System;
 using ImGuiNET;
 using System.Reflection;
+using System.Collections;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using UmbrellaToolsKit.EditorEngine.Attributes;
 
 namespace UmbrellaToolsKit.EditorEngine.Windows
 {
@@ -109,7 +112,6 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             );
         }
 
-
         private void ShowConsole(uint bottom)
         {
             ImGui.SetNextWindowDockID(bottom, ImGuiCond.Once);
@@ -164,6 +166,7 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
                 ImGui.SetWindowFontScale(1.5f);
                 ImGui.Text(GameObjectSelected.tag);
                 ImGui.Spacing();
+                ImGui.Separator();
                 ImGui.Spacing();
                 ImGui.SetWindowFontScale(1.2f);
 
@@ -182,7 +185,11 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
             if (component == null) return;
 
             if (ImGui.CollapsingHeader(component.GetType().Name))
+            {
+                ImGui.Indent();
                 DrawAllFields(component);
+                ImGui.Unindent();
+            }
 
             DrawComponents(component.Next);
         }
@@ -190,10 +197,50 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
         private void DrawAllFields(object obj)
         {
             var type = obj.GetType();
+            var fieldsCategories = new Dictionary<string, List<FieldInfo>>();
+            var fieldsWithoutCategories = new List<FieldInfo>();
+
             foreach (FieldInfo fInfo in type.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+            {
                 foreach (var attr in fInfo.CustomAttributes)
+                {
+                    if (attr.AttributeType == typeof(CategoryAttribute))
+                    {
+                        string categoryName = (string)attr.ConstructorArguments[0].Value;
+
+                        if (!fieldsCategories.ContainsKey(categoryName))
+                            fieldsCategories.Add(categoryName, new List<FieldInfo>());
+
+                        fieldsCategories[categoryName].Add(fInfo);
+
+                    }
                     if (attr.AttributeType == typeof(ShowEditorAttribute))
-                        DrawField(fInfo, obj);
+                        fieldsWithoutCategories.Add(fInfo);
+                }
+            }
+
+            foreach (var category in fieldsCategories)
+            {
+                ImGui.SetWindowFontScale(1.5f);
+                ImGui.Spacing();
+                ImGui.Separator();
+                ImGui.Spacing();
+                bool treeNode = ImGui.TreeNode(category.Key);
+                ImGui.SetWindowFontScale(1.2f);
+
+                foreach (var field in category.Value)
+                {
+                    if (fieldsWithoutCategories.Contains(field))
+                    {
+                        fieldsWithoutCategories.Remove(field);
+                        if (treeNode) DrawField(field, obj);
+                    }
+                }
+                if (treeNode) ImGui.Unindent();
+            }
+
+            foreach (var field in fieldsWithoutCategories)
+                DrawField(field, obj);
         }
 
         private void DrawField(FieldInfo fInfo, object prop)

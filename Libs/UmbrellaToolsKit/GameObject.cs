@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using UmbrellaToolsKit.Interfaces;
+using UmbrellaToolsKit.EditorEngine.Attributes;
 
 namespace UmbrellaToolsKit
 {
@@ -15,17 +16,17 @@ namespace UmbrellaToolsKit
 
         public IComponent Components { get => _components; set => _components = value; }
         public bool RemoveFromScene { get => _removeFromScene; set => _removeFromScene = value; }
-        [ShowEditor] public Vector2 Position = Vector2.Zero;
+        [ShowEditor, Category("Transform")] public Vector2 Position = Vector2.Zero;
 
-        [ShowEditor] public Vector2 Origin = Vector2.Zero;
-        [ShowEditor] public Point size;
-        [ShowEditor] public float Scale = 1;
+        [ShowEditor, Category("Sprite")] public Vector2 Origin = Vector2.Zero;
+        [ShowEditor, Category("Sprite")] public Point size;
+        [ShowEditor, Category("Sprite")] public float Scale = 1;
         public Rectangle Body;
-        [ShowEditor] public float Rotation = 0;
+        [ShowEditor, Category("Sprite")] public float Rotation = 0;
         public Color SpriteColor = Color.White;
         public SpriteEffects spriteEffect = SpriteEffects.None;
         public Texture2D Sprite;
-        [ShowEditor] public float Transparent = 1f;
+        [ShowEditor, Category("Sprite")] public float Transparent = 1f;
 
         public string tag = "gameObject";
         public string Tag { get => tag; set => tag = value; }
