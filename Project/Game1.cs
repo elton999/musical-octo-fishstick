@@ -15,7 +15,7 @@ namespace Project
         private GameManagement _gameManagement;
 
         private int _currentLevel = 1;
-        private int _maxLevel = 4;
+        private int _maxLevel = 7;
         private bool _loadScene = false;
 
         public Game1()
