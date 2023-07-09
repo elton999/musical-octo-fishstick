@@ -219,12 +219,10 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
 
             foreach (var category in fieldsCategories)
             {
-                ImGui.SetWindowFontScale(1.5f);
                 ImGui.Spacing();
                 ImGui.Separator();
                 ImGui.Spacing();
-                bool treeNode = ImGui.TreeNode(category.Key);
-                ImGui.SetWindowFontScale(1.2f);
+                bool treeNode = ImGui.TreeNodeEx(category.Key, ImGuiTreeNodeFlags.DefaultOpen);
 
                 foreach (var field in category.Value)
                 {
