@@ -12,6 +12,7 @@ namespace Project.Entities
 {
     public class Player : Actor, IScalableVector
     {
+        public static event Action OnDieDaley;
         public static event Action OnDie;
 
         private HealthComponent _health;
@@ -66,8 +67,10 @@ namespace Project.Entities
 
         public IEnumerator OnDieDelay()
         {
-            yield return _dieCoroutine.Wait(300.0f);
+            yield return _dieCoroutine.Wait(200.0f);
             OnDie?.Invoke();
+            yield return _dieCoroutine.Wait(1000.0f);
+            OnDieDaley?.Invoke();
             yield return null;
         }
 

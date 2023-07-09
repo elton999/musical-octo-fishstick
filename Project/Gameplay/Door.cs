@@ -1,3 +1,4 @@
+using System.Collections;
 using System;
 using Project.Entities;
 using UmbrellaToolsKit;
@@ -15,7 +16,10 @@ namespace Project.Gameplay
         public bool CanOpenDoor => !HasKeys || HasKeys && Player.CollectedKey;
 
         public static event Action OnEnterDoor;
+        public static event Action OnEnterDoorDelay;
         public static bool HasKeys = false;
+
+        public CoroutineManagement CoroutineManagement = new CoroutineManagement();
 
         public override void Start()
         {
@@ -43,7 +47,21 @@ namespace Project.Gameplay
             if (!overlapCheck(Scene.Players[0].GetActor())) return;
 
             _playerIsOnDoor = true;
+            CoroutineManagement.StarCoroutine(OpenDoorDelay());
+        }
+
+        public IEnumerator OpenDoorDelay()
+        {
             OnEnterDoor?.Invoke();
+            yield return CoroutineManagement.Wait(1000.0f);
+            OnEnterDoorDelay?.Invoke();
+            yield return null;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            CoroutineManagement.Update(gameTime);
+            base.Update(gameTime);
         }
 
         public override void UpdateData(GameTime gameTime)
@@ -51,7 +69,6 @@ namespace Project.Gameplay
             CheckPlayer();
             base.UpdateData(gameTime);
         }
-
 
     }
 }

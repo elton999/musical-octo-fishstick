@@ -42,6 +42,8 @@ namespace Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _assetManagement = new AssetManagement();
+            _assetManagement.Set<Gameplay.SceneTransition>("player", Layers.UI);
+
             _assetManagement.Set<Player>("player", Layers.PLAYER);
             _assetManagement.Set<Enemy>("enemy", Layers.ENEMIES);
 
@@ -61,14 +63,14 @@ namespace Project
 
             LoadScene();
 
-            Player.OnDie += ReloadLevel;
-            Gameplay.Door.OnEnterDoor += LoadNextLevel;
+            Player.OnDieDaley += ReloadLevel;
+            Gameplay.Door.OnEnterDoorDelay += LoadNextLevel;
         }
 
         protected override void UnloadContent()
         {
-            Player.OnDie += ReloadLevel;
-            Gameplay.Door.OnEnterDoor += LoadNextLevel;
+            Player.OnDieDaley += ReloadLevel;
+            Gameplay.Door.OnEnterDoorDelay += LoadNextLevel;
 
             base.UnloadContent();
         }

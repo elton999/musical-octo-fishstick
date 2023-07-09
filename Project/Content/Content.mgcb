@@ -58,6 +58,12 @@
 #begin new.cdb
 /copy:new.cdb
 
+#begin Shaders/CircleEffect.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/CircleEffect.fx
+
 #begin Sprites/key.png
 /importer:TextureImporter
 /processor:TextureProcessor
