@@ -20,7 +20,7 @@ namespace UmbrellaToolsKit.Utils
 
         public static void Execute(Tuple<Keys, Action> cheat)
         {
-            Log.Write($"Executing cheat {cheat.Item2.Method.ToString()}");
+            Log.Write($"Executing cheat {cheat.Item2.Method.Name}");
             cheat.Item2?.Invoke();
         }
 

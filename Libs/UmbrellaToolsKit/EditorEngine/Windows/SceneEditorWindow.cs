@@ -1,7 +1,5 @@
-﻿using System;
-using ImGuiNET;
+﻿using ImGuiNET;
 using System.Reflection;
-using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using UmbrellaToolsKit.EditorEngine.Attributes;
@@ -16,7 +14,7 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
 
         public SceneEditorWindow(GameManagement gameManagement)
         {
-            BarEdtior.OnSwichEditorWindow += RemoveAsMainWindow;
+            BarEdtior.OnSwitchEditorWindow += RemoveAsMainWindow;
             BarEdtior.OnOpenMainEditor += SetAsMainWindow;
             _gameManagement = gameManagement;
             Log.OnLog += Logs.Add;
@@ -99,7 +97,7 @@ namespace UmbrellaToolsKit.EditorEngine.Windows
 
             float xScale = _windowSize.X / backBufferSize.X;
             float yScale = _windowSize.Y / backBufferSize.Y;
-            float backBuffer_scale = _windowSize.X < _windowSize.Y ? xScale : yScale;
+            float backBuffer_scale = _windowSize.X > _windowSize.Y ? xScale : yScale;
 
             float backBuffer_Position_x = _windowPosition.X;
             float backBuffer_Position_y = _windowPosition.Y;
