@@ -16,6 +16,9 @@ namespace Project.Entities
         public static event Action OnDie;
 
         private HealthComponent _health;
+        private JumpComponent _jumpComponent;
+        private InputMovementComponent _movementComponent;
+
         private CoroutineManagement _dieCoroutine = new CoroutineManagement();
         private CoroutineManagement _spriteCoroutine = new CoroutineManagement();
 
@@ -48,13 +51,15 @@ namespace Project.Entities
             AddComponent<LadderComponent>();
             AddComponent<JumpAnimation>();
             AddComponent<MovementComponent>().SetSpeed(Speed);
-            AddComponent<InputMovementComponent>();
+            _movementComponent = AddComponent<InputMovementComponent>();
             AddComponent<RevertSpriteByVelocityComponent>();
             AddComponent<WalkAnimationComponent>();
-            AddComponent<JumpComponent>().SetJumpForce(JumpForce);
+            _jumpComponent = AddComponent<JumpComponent>();
+            _jumpComponent.SetJumpForce(JumpForce);
             AddComponent<SmashSpriteOnFailComponent>().SetScaler(this);
 
             _health.OnDie += OnPlayerDie;
+            Gameplay.Door.OnEnterDoor += DisableInput;
 
             _playerCheat = new CheatListener();
             _playerCheat.AddCheat(Keys.F1, _health.BeImmortal);
@@ -63,7 +68,25 @@ namespace Project.Entities
             base.Start();
         }
 
-        public void OnPlayerDie() => _dieCoroutine.StarCoroutine(OnDieDelay());
+        public override void OnDestroy()
+        {
+            _health.OnDie -= OnPlayerDie;
+            Gameplay.Door.OnEnterDoor -= DisableInput;
+            CollectedKey = false;
+        }
+
+        public void OnPlayerDie()
+        {
+            _dieCoroutine.StarCoroutine(OnDieDelay());
+            Velocity = Vector2.Zero;
+            DisableInput();
+        }
+
+        public void DisableInput()
+        {
+            _movementComponent.InputEnable = false;
+            _jumpComponent.InputEnable = false;
+        }
 
         public IEnumerator OnDieDelay()
         {
@@ -81,16 +104,21 @@ namespace Project.Entities
             base.Update(gameTime);
         }
 
-        public override void OnDestroy()
-        {
-            _health.OnDie -= OnPlayerDie;
-            CollectedKey = false;
-        }
 
         public override void DrawSprite(SpriteBatch spriteBatch)
         {
-            if (Sprite != null)
-                spriteBatch.Draw(Sprite, Position, Body.IsEmpty ? null : Body, SpriteColor * Transparent, Rotation, Origin + OffsetVector, ScaleVector, spriteEffect, 0);
+            if (Sprite == null) return;
+
+            spriteBatch.Draw(
+                Sprite,
+                Position,
+                Body.IsEmpty ? null : Body, SpriteColor * Transparent,
+                Rotation,
+                Origin + OffsetVector,
+                ScaleVector,
+                spriteEffect,
+                0
+            );
         }
     }
 }

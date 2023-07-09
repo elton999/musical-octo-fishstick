@@ -15,6 +15,8 @@ namespace Project.Components
 
         private JumpAnimation _jumpAnimation;
 
+        public bool InputEnable = true;
+
         public void SetJumpForce(float jumpForce) => _jumpForce = jumpForce;
 
         public override void Start()
@@ -25,7 +27,7 @@ namespace Project.Components
 
         public override void Update(GameTime gameTime)
         {
-            if (KeyBoardHandler.KeyPressed(Keys.Z) && _canJump && !_jump)
+            if (KeyBoardHandler.KeyPressed(Keys.Z) && _canJump && !_jump && InputEnable)
                 _jump = true;
             base.Update(gameTime);
         }
