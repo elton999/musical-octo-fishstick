@@ -43,6 +43,7 @@ namespace Project
 
             _assetManagement = new AssetManagement();
             _assetManagement.Set<Gameplay.SceneTransition>("player", Layers.UI);
+            _assetManagement.Set<Gameplay.Light>("player", Layers.BACKGROUND);
 
             _assetManagement.Set<Player>("player", Layers.PLAYER);
             _assetManagement.Set<Enemy>("enemy", Layers.ENEMIES);
@@ -107,6 +108,7 @@ namespace Project
         {
             scene.Dispose();
             scene.SetLevel(_currentLevel);
+            scene.SetBackgroundColor = Color.Black;
             scene.Camera.Position = scene.Sizes.ToVector2() / 2f;
         }
 

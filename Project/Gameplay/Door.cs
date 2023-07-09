@@ -11,7 +11,6 @@ namespace Project.Gameplay
     public class Door : Actor
     {
         [ShowEditor] private bool _playerIsOnDoor = false;
-        private Square _square;
 
         public bool CanOpenDoor => !HasKeys || HasKeys && Player.CollectedKey;
 
@@ -27,12 +26,6 @@ namespace Project.Gameplay
             HasGravity = false;
             size = new Point(16, 16);
 
-            _square = new Square();
-            _square.Position = Position;
-            _square.size = size;
-            _square.SquareColor = Color.Purple;
-
-            Scene.AddGameObject(_square);
             base.Start();
         }
 
