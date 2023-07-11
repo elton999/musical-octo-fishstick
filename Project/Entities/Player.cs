@@ -58,6 +58,8 @@ namespace Project.Entities
             _jumpComponent.SetJumpForce(JumpForce);
             AddComponent<SmashSpriteOnFailComponent>().SetScaler(this);
 
+            Gameplay.Light.Points.Add(new Gameplay.Light.LightPoint(this, 0.2f));
+
             _health.OnDie += OnPlayerDie;
             Gameplay.Door.OnEnterDoor += DisableInput;
 
