@@ -43,6 +43,7 @@ namespace Project
 
             _assetManagement = new AssetManagement();
             _assetManagement.Set<Gameplay.SceneTransition>("player", Layers.UI);
+            _assetManagement.Set<Gameplay.LightPointEffect>("lightPoint", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.Light>("player", Layers.BACKGROUND);
 
             _assetManagement.Set<Player>("player", Layers.PLAYER);

@@ -41,7 +41,7 @@ namespace Project.Gameplay
         {
             Scene.ScreenGraphicsDevice.SetRenderTarget(_BackBuffer);
             Scene.ScreenGraphicsDevice.Clear(Color.Transparent);
-            Effect = _effect;
+            Effect = null;
             BeginDraw(spriteBatch);
             foreach (var point in Points)
             {
@@ -58,7 +58,7 @@ namespace Project.Gameplay
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Effect = null;
+            Effect = _effect;
             BeginDraw(spriteBatch);
             Position = Vector2.Zero;
             Scale = 1.0f;
