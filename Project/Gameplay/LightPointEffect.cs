@@ -1,5 +1,7 @@
+using System;
 using UmbrellaToolsKit;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Gameplay
 {
@@ -9,9 +11,10 @@ namespace Project.Gameplay
         {
             Tag = "Light Point";
             size = new Point(8);
-            Light.Points.Add(new Light.LightPoint(this, 0.1f));
+            Sprite = Scene.Content.Load<Texture2D>("Sprites/Tilemap");
+            Body = new Rectangle(new Point(72, 0), size);
+            Light.Points.Add(new Tuple<float, GameObject>(0.13f, this));
             base.Start();
         }
-
     }
 }

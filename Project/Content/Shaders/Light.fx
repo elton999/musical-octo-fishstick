@@ -9,6 +9,7 @@
 
 Texture2D SpriteTexture;
 float Scale;
+float4 LightColor;
 
 sampler2D SpriteTextureSampler = sampler_state
 {
@@ -26,7 +27,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 {
 	float4 color = tex2D(SpriteTextureSampler,input.TextureCoordinates) * input.Color;
 	if(color.a > Scale)
-		color = float4(1.0f, 1.0f, 1.0f, 1.0f);
+		color = LightColor;
 	else
 		color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
