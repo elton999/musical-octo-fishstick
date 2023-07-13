@@ -8,8 +8,10 @@
 #endif
 
 Texture2D SpriteTexture;
-float Scale;
-float4 LightColor;
+float Scale1;
+float Scale2;
+float4 LightColor1;
+float4 LightColor2;
 
 sampler2D SpriteTextureSampler = sampler_state
 {
@@ -26,12 +28,14 @@ struct VertexShaderOutput
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
 	float4 color = tex2D(SpriteTextureSampler,input.TextureCoordinates) * input.Color;
-	if(color.a > Scale)
-		color = LightColor;
-	else
-		color = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	float4 colorR  = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	
+	if (color.a > Scale2)
+		colorR = LightColor2;
+	if (color.a > Scale1)
+		colorR = LightColor1;
 
-	return color;
+	return colorR;
 }
 
 technique SpriteDrawing

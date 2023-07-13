@@ -8,7 +8,6 @@ namespace Project.Gameplay
 {
     public class Light : GameObject
     {
-
         private RenderTarget2D _BackBuffer;
         private Texture2D _lightSprite;
         private Effect _effect;
@@ -20,8 +19,10 @@ namespace Project.Gameplay
         {
             _lightSprite = Scene.Content.Load<Texture2D>("Sprites/light_sprite");
             _effect = Scene.Content.Load<Effect>("Shaders/Light");
-            _effect.Parameters["Scale"].SetValue(0.5f);
-            _effect.Parameters["LightColor"].SetValue((new Color(32, 0, 178)).ToVector4());
+            _effect.Parameters["Scale1"].SetValue(0.5f);
+            _effect.Parameters["Scale2"].SetValue(0.05f);
+            _effect.Parameters["LightColor1"].SetValue((new Color(65, 97, 251)).ToVector4());
+            _effect.Parameters["LightColor2"].SetValue((new Color(32, 0, 178)).ToVector4());
 
             Tag = "Light";
             _BackBuffer = new RenderTarget2D(Scene.ScreenGraphicsDevice, Scene.Sizes.X, Scene.Sizes.Y);
