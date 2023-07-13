@@ -13,13 +13,6 @@ namespace Project.Gameplay
             HasGravity = false;
 
             AddComponent<DamagerComponent>().InstantaneityDeath = true;
-
-            var spikeRender = new Square();
-            spikeRender.SquareColor = Color.Red;
-            spikeRender.size = size;
-            spikeRender.Position = Position;
-
-            Scene.AddGameObject(spikeRender);
             base.Start();
         }
     }
