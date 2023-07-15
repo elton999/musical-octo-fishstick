@@ -11,6 +11,7 @@ namespace Project.Gameplay
         private RenderTarget2D _BackBuffer;
         private Texture2D _lightSprite;
         private Effect _effect;
+        private Effect _tilemapEffect;
         private GameTime _gameTime;
 
         public static List<Tuple<float, GameObject>> Points = new List<Tuple<float, GameObject>>();
@@ -24,8 +25,14 @@ namespace Project.Gameplay
             _effect.Parameters["LightColor1"].SetValue((new Color(65, 97, 251)).ToVector4());
             _effect.Parameters["LightColor2"].SetValue((new Color(32, 0, 178)).ToVector4());
 
-            Tag = "Light";
+            _tilemapEffect = Scene.Content.Load<Effect>("Shaders/TilemapLight");
+            _tilemapEffect.Parameters["KeyColor"].SetValue((new Color(255, 0, 0)).ToVector4());
+            _tilemapEffect.Parameters["NewColor"].SetValue((new Color(32, 0, 178)).ToVector4());
+
+            Scene.Effect = _tilemapEffect;
+
             _BackBuffer = new RenderTarget2D(Scene.ScreenGraphicsDevice, Scene.Sizes.X, Scene.Sizes.Y);
+            Tag = "Light";
 
             base.Start();
         }
@@ -59,6 +66,9 @@ namespace Project.Gameplay
             }
             EndDraw(spriteBatch);
             Scene.ScreenGraphicsDevice.SetRenderTarget(null);
+
+            _tilemapEffect.Parameters["LightTexture"].SetValue((Texture2D)_BackBuffer);
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)

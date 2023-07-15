@@ -37,6 +37,8 @@ namespace UmbrellaToolsKit
         public int CellSize = 8;
         public bool PixelArt = true;
 
+        public Effect Effect;
+
         public void addLayers()
         {
             SortLayers = new List<List<GameObject>>();
@@ -320,7 +322,7 @@ namespace UmbrellaToolsKit
 
         public void DrawBuffer(SpriteBatch spriteBatch, float _BackBuffer_scale, float _BackBuffer_Position_x, float _BackBuffer_Position_y)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, Effect != null ? Effect : null, null);
             spriteBatch.Draw(
                 (Texture2D)_BackBuffer,
                 new Vector2(_BackBuffer_Position_x, _BackBuffer_Position_y),

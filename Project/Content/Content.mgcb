@@ -70,6 +70,12 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/Light.fx
 
+#begin Shaders/TilemapLight.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/TilemapLight.fx
+
 #begin Sprites/key.png
 /importer:TextureImporter
 /processor:TextureProcessor

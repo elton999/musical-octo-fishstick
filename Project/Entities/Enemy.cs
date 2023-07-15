@@ -24,7 +24,7 @@ namespace Project.Entities
             Gravity2D = Vector2.UnitY * 30f;
             MaxVelocity = 200f;
 
-            SpriteColor = Color.Red;
+            SpriteColor = new Color(178, 16, 48);
 
             AddComponent<DamagerComponent>();
             AddComponent<LadderComponent>();
