@@ -50,5 +50,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\SceneTransition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\Light.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\LightPointEffect.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\ImitParticlesOnGround.cs" />
   </ItemGroup>
 </Project>

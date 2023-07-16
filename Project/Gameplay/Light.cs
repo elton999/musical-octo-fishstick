@@ -64,6 +64,8 @@ namespace Project.Gameplay
             base.Update(gameTime);
         }
 
+        private void StartTurnOffLight() => coroutineManagement.StarCoroutine(TurnOffLight());
+
         private IEnumerator TurnOnLight()
         {
             while (_lightScaleFactor < 1.0f)
@@ -78,8 +80,6 @@ namespace Project.Gameplay
 
             yield return null;
         }
-
-        private void StartTurnOffLight() => coroutineManagement.StarCoroutine(TurnOffLight());
 
         private IEnumerator TurnOffLight()
         {
