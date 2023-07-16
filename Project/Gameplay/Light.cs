@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UmbrellaToolsKit;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Project.Entities;
 
 namespace Project.Gameplay
 {
@@ -13,9 +15,12 @@ namespace Project.Gameplay
         private Texture2D _lightSprite;
         private Effect _effect;
         private Effect _tilemapEffect;
+        private float _turnOnSpeed = 5.0f;
+        private float _turnOffSpeed = 8.0f;
+        private float _lightScaleFactor = 0.0f;
         private GameTime _gameTime;
 
-        private GameObject f;
+        private CoroutineManagement coroutineManagement = new CoroutineManagement();
 
         public static List<Tuple<float, GameObject>> Points = new List<Tuple<float, GameObject>>();
 
@@ -38,16 +43,58 @@ namespace Project.Gameplay
             _BackBuffer2 = new RenderTarget2D(Scene.ScreenGraphicsDevice, Scene.Sizes.X, Scene.Sizes.Y);
             Tag = "Light";
 
-            f = new GameObject();
-            Scene.AddGameObject(f, Layers.FOREGROUND);
+            coroutineManagement.StarCoroutine(TurnOnLight());
+
+            Player.OnDie += StartTurnOffLight;
+            Gameplay.Door.OnEnterDoor += StartTurnOffLight;
 
             base.Start();
+        }
+
+        public override void OnDestroy()
+        {
+            Player.OnDie -= StartTurnOffLight;
+            Gameplay.Door.OnEnterDoor -= StartTurnOffLight;
         }
 
         public override void Update(GameTime gameTime)
         {
             _gameTime = gameTime;
+            coroutineManagement.Update(gameTime);
             base.Update(gameTime);
+        }
+
+        private IEnumerator TurnOnLight()
+        {
+            while (_lightScaleFactor < 1.0f)
+            {
+                _lightScaleFactor = Math.Clamp(
+                    _lightScaleFactor + (float)_gameTime.ElapsedGameTime.TotalSeconds * _turnOnSpeed,
+                    0.0f,
+                    1.0f
+                );
+                yield return null;
+            }
+
+            yield return null;
+        }
+
+        private void StartTurnOffLight() => coroutineManagement.StarCoroutine(TurnOffLight());
+
+        private IEnumerator TurnOffLight()
+        {
+            _lightScaleFactor = 1.0f;
+            while (_lightScaleFactor > 0.0f)
+            {
+                _lightScaleFactor = Math.Clamp(
+                    _lightScaleFactor - (float)_gameTime.ElapsedGameTime.TotalSeconds * _turnOffSpeed,
+                    0.0f,
+                    1.0f
+                );
+                yield return null;
+            }
+
+            yield return null;
         }
 
         public override void DrawBeforeScene(SpriteBatch spriteBatch)
@@ -62,7 +109,7 @@ namespace Project.Gameplay
                 {
                     Sprite = _lightSprite;
                     Scale = MathF.Cos((float)_gameTime.TotalGameTime.TotalMinutes * 50f) * (point.Item1 / 30f);
-                    Scale += point.Item1;
+                    Scale += point.Item1 * _lightScaleFactor;
                     Vector2 SpriteSize = new Vector2(_lightSprite.Width, _lightSprite.Height);
                     Origin = SpriteSize * 0.5f;
                     Position = point.Item2.Position + point.Item2.size.ToVector2() / 2.0f;
