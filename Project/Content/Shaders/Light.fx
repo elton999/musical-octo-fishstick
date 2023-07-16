@@ -40,7 +40,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 
 technique SpriteDrawing
 {
-	pass P0
+	pass P1
 	{
 		PixelShader = compile PS_SHADERMODEL MainPS();
 	}

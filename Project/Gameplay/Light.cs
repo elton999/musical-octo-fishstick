@@ -9,10 +9,13 @@ namespace Project.Gameplay
     public class Light : GameObject
     {
         private RenderTarget2D _BackBuffer;
+        private RenderTarget2D _BackBuffer2;
         private Texture2D _lightSprite;
         private Effect _effect;
         private Effect _tilemapEffect;
         private GameTime _gameTime;
+
+        private GameObject f;
 
         public static List<Tuple<float, GameObject>> Points = new List<Tuple<float, GameObject>>();
 
@@ -26,13 +29,17 @@ namespace Project.Gameplay
             _effect.Parameters["LightColor2"].SetValue((new Color(32, 0, 178)).ToVector4());
 
             _tilemapEffect = Scene.Content.Load<Effect>("Shaders/TilemapLight");
-            _tilemapEffect.Parameters["KeyColor"].SetValue((new Color(255, 0, 0)).ToVector4());
-            _tilemapEffect.Parameters["NewColor"].SetValue((new Color(32, 0, 178)).ToVector4());
-
-            Scene.Effect = _tilemapEffect;
+            _tilemapEffect.Parameters["KeyColor1"]?.SetValue((new Color(255, 0, 0)).ToVector4());
+            _tilemapEffect.Parameters["KeyColor2"]?.SetValue((new Color(0, 255, 0)).ToVector4());
+            _tilemapEffect.Parameters["NewColor1"]?.SetValue((new Color(32, 0, 178)).ToVector4());
+            _tilemapEffect.Parameters["NewColor2"]?.SetValue((new Color(65, 97, 251)).ToVector4());
 
             _BackBuffer = new RenderTarget2D(Scene.ScreenGraphicsDevice, Scene.Sizes.X, Scene.Sizes.Y);
+            _BackBuffer2 = new RenderTarget2D(Scene.ScreenGraphicsDevice, Scene.Sizes.X, Scene.Sizes.Y);
             Tag = "Light";
+
+            f = new GameObject();
+            Scene.AddGameObject(f, Layers.FOREGROUND);
 
             base.Start();
         }
@@ -53,7 +60,6 @@ namespace Project.Gameplay
             {
                 try
                 {
-
                     Sprite = _lightSprite;
                     Scale = MathF.Cos((float)_gameTime.TotalGameTime.TotalMinutes * 50f) * (point.Item1 / 30f);
                     Scale += point.Item1;
@@ -65,20 +71,33 @@ namespace Project.Gameplay
                 catch { }
             }
             EndDraw(spriteBatch);
+
             Scene.ScreenGraphicsDevice.SetRenderTarget(null);
+            Scene.ScreenGraphicsDevice.SetRenderTarget(_BackBuffer2);
+            Scene.ScreenGraphicsDevice.Clear(Color.Transparent);
+            Sprite = (Texture2D)_BackBuffer;
+            Effect = _effect;
 
-            _tilemapEffect.Parameters["LightTexture"].SetValue((Texture2D)_BackBuffer);
+            BeginDraw(spriteBatch);
+            Position = Vector2.Zero;
+            Scale = 1f;
+            Origin = Vector2.Zero;
+            DrawSprite(spriteBatch);
+            EndDraw(spriteBatch);
 
+            Sprite = (Texture2D)_BackBuffer2;
+
+            _tilemapEffect.Parameters["LightTexture"].SetValue(Sprite);
+            Scene.Effect = _tilemapEffect;
+            Effect = null;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Effect = _effect;
             BeginDraw(spriteBatch);
             Position = Vector2.Zero;
-            Scale = 1.0f;
+            Scale = 1f;
             Origin = Vector2.Zero;
-            Sprite = (Texture2D)_BackBuffer;
             DrawSprite(spriteBatch);
             EndDraw(spriteBatch);
         }
