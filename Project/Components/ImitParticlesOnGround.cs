@@ -45,7 +45,7 @@ namespace Project.Components
                 _particlesSystem.ParticleTransparent = 1f;
                 _particlesSystem.MaxParticles = 20;
                 _particlesSystem.ParticleMaxScale = 2f;
-                _particlesSystem.ParticleVelocity = 10f;
+                _particlesSystem.ParticleVelocity = 5f;
                 var sprite = new Texture2D(GameObject.Scene.ScreenGraphicsDevice, 1, 1);
                 sprite.SetData(new Color[1] { Color.White });
                 _particlesSystem.Sprites.Add(sprite);
