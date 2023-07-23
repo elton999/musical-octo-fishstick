@@ -57,6 +57,7 @@ namespace Project.Entities
             _jumpComponent = AddComponent<JumpComponent>();
             _jumpComponent.SetJumpForce(JumpForce);
             AddComponent<SmashSpriteOnFailComponent>().SetScaler(this);
+            AddComponent<SqueezeSpriteOnJumpComponent>().SetScaler(this);
             AddComponent<ImitParticlesOnGround>();
 
             Gameplay.Light.Points.Add(new Tuple<float, GameObject>(0.18f, this));
