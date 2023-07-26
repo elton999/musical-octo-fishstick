@@ -50,6 +50,16 @@
 /processor:OgmoTileMapProcessor
 /build:Maps/Level_7.json
 
+#begin Maps/Level_8.json
+/importer:OgmoTileMapImporter
+/processor:OgmoTileMapProcessor
+/build:Maps/Level_8.json
+
+#begin Maps/Level_9.json
+/importer:OgmoTileMapImporter
+/processor:OgmoTileMapProcessor
+/build:Maps/Level_9.json
+
 #begin Maps/TileMap.ogmo
 /importer:OgmoImporter
 /processor:OgmoProcessor
