@@ -2,9 +2,9 @@ using System.Collections;
 using System;
 using Project.Entities;
 using UmbrellaToolsKit;
-using UmbrellaToolsKit.Sprite;
 using UmbrellaToolsKit.Collision;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Gameplay
 {
@@ -24,8 +24,8 @@ namespace Project.Gameplay
         {
             tag = "Door";
             HasGravity = false;
-            size = new Point(16, 16);
-
+            size = new Point(16, 17);
+            Sprite = Scene.Content.Load<Texture2D>("Sprites/Tilemap");
             base.Start();
         }
 
@@ -51,9 +51,18 @@ namespace Project.Gameplay
             yield return null;
         }
 
+        public void SetDoorSprite()
+        {
+            Body = new Rectangle(new Point(0, 64), size);
+
+            if (!HasKeys || HasKeys && Player.CollectedKey && _playerIsOnDoor)
+                Body = new Rectangle(new Point(17, 64), size);
+        }
+
         public override void Update(GameTime gameTime)
         {
             CoroutineManagement.Update(gameTime);
+            SetDoorSprite();
             base.Update(gameTime);
         }
 

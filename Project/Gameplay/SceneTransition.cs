@@ -10,7 +10,7 @@ namespace Project.Gameplay
     public class SceneTransition : Square
     {
         public float EffectFactor = 0.0f;
-        public float Speed = 5.0f;
+        public float Speed = 4.0f;
 
         public CoroutineManagement coroutineManagement = new CoroutineManagement();
 
