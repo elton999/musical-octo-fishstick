@@ -8,8 +8,8 @@ namespace Project.Gameplay
 {
     public class HideWayHitBox : Actor
     {
-        private bool _isShowTheWay = false;
-        private float _speed = 10.0f;
+        [ShowEditor] private bool _isShowTheWay = false;
+        [ShowEditor] private float _speed = 5.0f;
         private CoroutineManagement _coroutineManagement = new();
 
         public override void Update(GameTime gameTime)
