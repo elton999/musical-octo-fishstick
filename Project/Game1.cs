@@ -53,6 +53,7 @@ namespace Project
             _assetManagement.Set<Gameplay.Ladder>("ladder", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.Platform>("platform", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.Spike>("spike", Layers.MIDDLEGROUND);
+            _assetManagement.Set<Text>("ShowText", Layers.MIDDLEGROUND);
 
             _assetManagement.Set<Gameplay.Door>("door", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.HideWayHitBox>("HideWayHitBox", Layers.MIDDLEGROUND);

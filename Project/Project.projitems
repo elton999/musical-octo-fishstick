@@ -53,5 +53,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\ImitParticlesOnGround.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\SqueezeSpriteOnJumpComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\HideWayHitBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Text.cs" />
   </ItemGroup>
 </Project>

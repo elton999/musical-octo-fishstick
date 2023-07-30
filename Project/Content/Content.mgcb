@@ -3,10 +3,10 @@
 
 /outputDir:bin/$(Platform)
 /intermediateDir:obj/$(Platform)
-/platform:Windows
+/platform:DesktopGL
 /config:
-/profile:Reach
-/compress:False
+/profile:HiDef
+/compress:True
 
 #-------------------------------- References --------------------------------#
 
@@ -14,6 +14,18 @@
 /reference:..\..\MonoGame.ContentPipeline.UmbrellaToolsKit.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin File.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:File.xml
+
+#begin Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font.spritefont
 
 #begin Maps/Level_1.json
 /importer:OgmoTileMapImporter
@@ -59,6 +71,11 @@
 /importer:OgmoTileMapImporter
 /processor:OgmoTileMapProcessor
 /build:Maps/Level_9.json
+
+#begin Maps/Level_Red_Room.json
+/importer:OgmoTileMapImporter
+/processor:OgmoTileMapProcessor
+/build:Maps/Level_Red_Room.json
 
 #begin Maps/TileMap.ogmo
 /importer:OgmoImporter
