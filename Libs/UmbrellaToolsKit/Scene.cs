@@ -51,10 +51,6 @@ namespace UmbrellaToolsKit
 
         public void AddGameObject(GameObject gameObject, Layers layer = Layers.MIDDLEGROUND)
         {
-            gameObject.Scene = this;
-            gameObject.Content = Content;
-            gameObject.Start();
-
             switch (layer)
             {
                 case Layers.PLAYER:
@@ -76,6 +72,10 @@ namespace UmbrellaToolsKit
                     Backgrounds.Add(gameObject);
                     break;
             }
+
+            gameObject.Scene = this;
+            gameObject.Content = Content;
+            gameObject.Start();
         }
 
         #endregion

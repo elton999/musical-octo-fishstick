@@ -7,6 +7,7 @@ using UmbrellaToolsKit.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Gameplay;
 
 namespace Project.Entities
 {
@@ -61,22 +62,30 @@ namespace Project.Entities
             AddComponent<SqueezeSpriteOnJumpComponent>().SetScaler(this);
             AddComponent<ImitParticlesOnGround>();
 
-            Gameplay.Light.Points.Add(new Tuple<float, GameObject>(0.18f, this));
+            Light.Points.Add(new Tuple<float, GameObject>(0.18f, this));
 
             _health.OnDie += OnPlayerDie;
-            Gameplay.Door.OnEnterDoor += DisableInput;
+            Door.OnEnterDoor += DisableInput;
 
             _playerCheat = new CheatListener();
             _playerCheat.AddCheat(Keys.F1, _health.BeImmortal);
             Scene.AddGameObject(_playerCheat);
 
             base.Start();
+
+            if(CollectedRedKey)
+            {
+                var redKey = new RedKey();
+                Scene.AddGameObject(redKey, Layers.FOREGROUND);
+                redKey.OnCollected();
+                redKey.Position = Position;
+            }
         }
 
         public override void OnDestroy()
         {
             _health.OnDie -= OnPlayerDie;
-            Gameplay.Door.OnEnterDoor -= DisableInput;
+            Door.OnEnterDoor -= DisableInput;
             CollectedKey = false;
         }
 

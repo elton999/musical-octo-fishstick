@@ -20,7 +20,10 @@ namespace Project.Gameplay
         {
             Components.Remove(CollectableComponent);
             Player.CollectedRedKey = true;
-            AddComponent<FollowingObjectComponent>().Target = Scene.Players[0];
+            var followingComponet = AddComponent<FollowingObjectComponent>();
+            followingComponet.Target = Scene.Players[0];
+            followingComponet.MaxDistance = 8f;
+            followingComponet.Speed = 2f; 
         }
     }
 }
