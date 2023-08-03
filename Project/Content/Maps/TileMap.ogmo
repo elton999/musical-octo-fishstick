@@ -402,8 +402,8 @@
       "nodeGhost": true,
       "tags": ["enviroment", "enemies"],
       "values": [],
-      "texture": "../Sprites/key.png",
-      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAADZJREFUGJWNjkEKACAMwzIf6uP20XoQYUgHy7FNoQAokRLhqIWTll0V4l/GvllL+2UsvXIkARyelBqkJFUDhgAAAABJRU5ErkJggg=="
+      "texture": "../Sprites/redkey.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAADhJREFUGJVjYGBgYNgkYPB/k4DBfwZsAFkCmyImrLqQACO6Tr8PFxjx6sDpFqIVwSSJUsTAwMAAAM6uFX2EDOGdAAAAAElFTkSuQmCC"
     },
     {
       "exportID": "11620759",
@@ -512,7 +512,8 @@
       "nodeGhost": true,
       "tags": ["enviroment"],
       "values": [
-        {"name": "scene", "definition": "String", "display": 2, "defaults": "scene", "maxLength": 0, "trimWhitespace": true}
+        {"name": "scene", "definition": "String", "display": 2, "defaults": "scene", "maxLength": 0, "trimWhitespace": true},
+        {"name": "needKey", "definition": "Boolean", "display": 2, "defaults": false}
       ]
     },
     {
