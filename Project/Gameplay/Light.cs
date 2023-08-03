@@ -20,9 +20,9 @@ namespace Project.Gameplay
         private float _lightScaleFactor = 0.0f;
         private GameTime _gameTime;
 
-        private CoroutineManagement coroutineManagement = new CoroutineManagement();
+        private CoroutineManagement coroutineManagement = new();
 
-        public static List<Tuple<float, GameObject>> Points = new List<Tuple<float, GameObject>>();
+        public static List<Tuple<float, GameObject>> Points = new();
 
         public override void Start()
         {
@@ -46,7 +46,7 @@ namespace Project.Gameplay
             coroutineManagement.StarCoroutine(TurnOnLight());
 
             Player.OnDie += StartTurnOffLight;
-            Gameplay.Door.OnEnterDoor += StartTurnOffLight;
+            Door.OnEnterDoor += StartTurnOffLight;
 
             base.Start();
         }
@@ -54,7 +54,7 @@ namespace Project.Gameplay
         public override void OnDestroy()
         {
             Player.OnDie -= StartTurnOffLight;
-            Gameplay.Door.OnEnterDoor -= StartTurnOffLight;
+            Door.OnEnterDoor -= StartTurnOffLight;
         }
 
         public override void Update(GameTime gameTime)
@@ -99,24 +99,26 @@ namespace Project.Gameplay
 
         public override void DrawBeforeScene(SpriteBatch spriteBatch)
         {
+            if (_gameTime == null) return;
+            float deltaTime = (float)_gameTime.TotalGameTime.TotalMinutes;
+
             Scene.ScreenGraphicsDevice.SetRenderTarget(_BackBuffer);
             Scene.ScreenGraphicsDevice.Clear(Color.Transparent);
             Effect = null;
             BeginDraw(spriteBatch);
-            foreach (var point in Points)
+
+            for (int i = 0; i < Points.Count; i++)
             {
-                try
-                {
-                    Sprite = _lightSprite;
-                    Scale = MathF.Cos((float)_gameTime.TotalGameTime.TotalMinutes * 50f) * (point.Item1 / 30f);
-                    Scale += point.Item1 * _lightScaleFactor;
-                    Vector2 SpriteSize = new Vector2(_lightSprite.Width, _lightSprite.Height);
-                    Origin = SpriteSize * 0.5f;
-                    Position = point.Item2.Position + point.Item2.size.ToVector2() / 2.0f;
-                    DrawSprite(spriteBatch);
-                }
-                catch { }
+                var point = Points[i];
+                Sprite = _lightSprite;
+                Scale = MathF.Cos(deltaTime * 50f) * (point.Item1 / 30f);
+                Scale += point.Item1 * _lightScaleFactor;
+                Vector2 SpriteSize = new(_lightSprite.Width, _lightSprite.Height);
+                Origin = SpriteSize * 0.5f;
+                Position = point.Item2.Position + point.Item2.size.ToVector2() / 2.0f;
+                DrawSprite(spriteBatch);
             }
+            
             EndDraw(spriteBatch);
 
             Scene.ScreenGraphicsDevice.SetRenderTarget(null);

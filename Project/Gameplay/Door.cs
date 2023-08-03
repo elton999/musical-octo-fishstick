@@ -71,7 +71,6 @@ namespace Project.Gameplay
             CheckPlayer();
             base.UpdateData(gameTime);
         }
-
     }
 }
 

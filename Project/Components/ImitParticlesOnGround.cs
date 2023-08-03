@@ -36,24 +36,26 @@ namespace Project.Components
         {
             if (_particlesSystem == null)
             {
-                _particlesSystem = new ParticlesSystem();
-                _particlesSystem.EmitsFor = ParticlesSystem.TypeEmitter.FOR_TIME;
-                _particlesSystem.ParticleVelocityAngle = -227.0f;
-                _particlesSystem.ParticleAngleRotation = 180.0f;
-                _particlesSystem.EmitterTime = 20.0f;
-                _particlesSystem.ParticleRadiusSpawn = 2f;
-                _particlesSystem.ParticleTransparent = 1f;
-                _particlesSystem.MaxParticles = 20;
-                _particlesSystem.ParticleMaxScale = 2f;
-                _particlesSystem.ParticleVelocity = 5f;
                 var sprite = new Texture2D(GameObject.Scene.ScreenGraphicsDevice, 1, 1);
                 sprite.SetData(new Color[1] { Color.White });
+                _particlesSystem = new ParticlesSystem()
+                {
+                    EmitsFor = ParticlesSystem.TypeEmitter.FOR_TIME,
+                    ParticleVelocityAngle = -227.0f,
+                    ParticleAngleRotation = 180.0f,
+                    EmitterTime = 20.0f,
+                    ParticleRadiusSpawn = 2f,
+                    ParticleTransparent = 1f,
+                    MaxParticles = 20,
+                    ParticleMaxScale = 2f,
+                    ParticleVelocity = 5f,
+                    Tag = "Particles",
+                    Position = GameObject.Position + new Vector2(GameObject.size.X / 2f, GameObject.size.Y)
+                };
                 _particlesSystem.Sprites.Add(sprite);
-                _particlesSystem.Tag = "Particles";
                 GameObject.Scene.AddGameObject(_particlesSystem, Layers.FOREGROUND);
             }
 
-            _particlesSystem.Position = GameObject.Position + new Vector2(GameObject.size.X / 2f, GameObject.size.Y);
             _particlesSystem.Restart();
         }
     }
