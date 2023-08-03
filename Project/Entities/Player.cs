@@ -31,6 +31,7 @@ namespace Project.Entities
         public Vector2 OffsetVector { get; set; }
 
         public static bool CollectedKey = false;
+        public static bool CollectedRedKey = false;
 
         public override void Start()
         {

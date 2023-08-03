@@ -19,7 +19,7 @@ namespace Project.Gameplay
             Sprite = Scene.Content.Load<Texture2D>("Sprites/key");
             size = new Point(8);
 
-            Door.HasKeys = true;
+            SetLevelConfig();
 
             AddComponent<FloatingComponent>();
             CollectableComponent = AddComponent<CollectableComponent>();
@@ -30,8 +30,10 @@ namespace Project.Gameplay
         }
 
         public override void OnDestroy() => CollectableComponent.OnCollectItem -= OnCollected;
+        
+        public virtual void SetLevelConfig() => Door.HasKeys = true;
 
-        public void OnCollected()
+        public virtual void OnCollected()
         {
             Components.Remove(CollectableComponent);
             Player.CollectedKey = true;

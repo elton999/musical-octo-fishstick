@@ -58,6 +58,7 @@ namespace Project
             _assetManagement.Set<Gameplay.Door>("door", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.HideWayHitBox>("HideWayHitBox", Layers.MIDDLEGROUND);
             _assetManagement.Set<Gameplay.Key>("key", Layers.FOREGROUND);
+            _assetManagement.Set<Gameplay.RedKey>("redKey", Layers.FOREGROUND);
 
             KeyBoardHandler.AddInput(Keys.Left);
             KeyBoardHandler.AddInput(Keys.Right);
