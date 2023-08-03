@@ -50,12 +50,12 @@ namespace Project.Components
                     ParticleMaxScale = 2f,
                     ParticleVelocity = 5f,
                     Tag = "Particles",
-                    Position = GameObject.Position + new Vector2(GameObject.size.X / 2f, GameObject.size.Y)
                 };
                 _particlesSystem.Sprites.Add(sprite);
                 GameObject.Scene.AddGameObject(_particlesSystem, Layers.FOREGROUND);
             }
 
+            _particlesSystem.Position = GameObject.Position + new Vector2(GameObject.size.X / 2f, GameObject.size.Y);
             _particlesSystem.Restart();
         }
     }
