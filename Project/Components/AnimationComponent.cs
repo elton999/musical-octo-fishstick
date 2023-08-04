@@ -22,7 +22,7 @@ namespace Project.Components
         {
             if (_animation != null)
             {
-                _animation.Play(gameTime, _currentAnimation, AsepriteAnimation.AnimationDirection.LOOP);
+                _animation.Play(gameTime, _currentAnimation, _animationDirection);
                 GameObject.Body = _animation.Body;
             }
             base.Update(gameTime);
