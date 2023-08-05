@@ -15,7 +15,7 @@ namespace Project.Gameplay
         [ShowEditor] protected virtual Point _openedDoorSprite => new Point(17, 64);
 
         public virtual bool CanOpenDoor => !HasKeys || HasKeys && Player.CollectedKey;
-        public virtual bool CanShowOpenedDoor => !HasKeys || HasKeys && Player.CollectedKey;
+        public virtual bool CanShowOpenedDoor => !HasKeys || HasKeys && Player.CollectedKey && _playerIsOnDoor;
 
         public static event Action OnEnterDoor;
         public static event Action OnEnterDoorDelay;
