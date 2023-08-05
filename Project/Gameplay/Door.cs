@@ -1,5 +1,5 @@
-using System.Collections;
 using System;
+using System.Collections;
 using Project.Entities;
 using UmbrellaToolsKit;
 using UmbrellaToolsKit.Collision;
@@ -10,9 +10,12 @@ namespace Project.Gameplay
 {
     public class Door : Actor
     {
-        [ShowEditor] private bool _playerIsOnDoor = false;
+        [ShowEditor] protected bool _playerIsOnDoor = false;
+        [ShowEditor] protected virtual Point _closedDoorSprite => new Point(0, 64);
+        [ShowEditor] protected virtual Point _openedDoorSprite => new Point(17, 64);
 
-        public bool CanOpenDoor => !HasKeys || HasKeys && Player.CollectedKey;
+        public virtual bool CanOpenDoor => !HasKeys || HasKeys && Player.CollectedKey;
+        public virtual bool CanShowOpenedDoor => !HasKeys || HasKeys && Player.CollectedKey && _playerIsOnDoor;
 
         public static event Action OnEnterDoor;
         public static event Action OnEnterDoorDelay;
@@ -43,20 +46,21 @@ namespace Project.Gameplay
             CoroutineManagement.StarCoroutine(OpenDoorDelay());
         }
 
-        public IEnumerator OpenDoorDelay()
+        public virtual IEnumerator OpenDoorDelay()
         {
-            OnEnterDoor?.Invoke();
+            OnEnterDoor();
             yield return CoroutineManagement.Wait(1000.0f);
             OnEnterDoorDelay?.Invoke();
             yield return null;
         }
 
+
         public void SetDoorSprite()
         {
-            Body = new Rectangle(new Point(0, 64), size);
+            Body = new Rectangle(_closedDoorSprite, size);
 
-            if (!HasKeys || HasKeys && Player.CollectedKey && _playerIsOnDoor)
-                Body = new Rectangle(new Point(17, 64), size);
+            if (CanShowOpenedDoor)
+                Body = new Rectangle(_openedDoorSprite, size);
         }
 
         public override void Update(GameTime gameTime)
@@ -71,6 +75,8 @@ namespace Project.Gameplay
             CheckPlayer();
             base.UpdateData(gameTime);
         }
+
+        public static void OnEnter() => OnEnterDoor?.Invoke();
     }
 }
 

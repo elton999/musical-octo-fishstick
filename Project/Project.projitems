@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Game1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Gameplay\RedDoor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gameplay\RedKey.cs" />
   </ItemGroup>
   <ItemGroup>
