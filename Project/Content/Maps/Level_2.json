@@ -917,7 +917,7 @@
           "y": 80,
           "originX": 0,
           "originY": 0,
-          "values": {"scene": "scene"}
+          "values": {"scene": "Secret_Room", "needKey": false}
         },
         {
           "name": "ShowText",

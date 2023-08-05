@@ -32,6 +32,16 @@
 /processor:OgmoTileMapProcessor
 /build:Maps/Level_1.json
 
+#begin Maps/Level_10.json
+/importer:OgmoTileMapImporter
+/processor:OgmoTileMapProcessor
+/build:Maps/Level_10.json
+
+#begin Maps/Level_11.json
+/importer:OgmoTileMapImporter
+/processor:OgmoTileMapProcessor
+/build:Maps/Level_11.json
+
 #begin Maps/Level_2.json
 /importer:OgmoTileMapImporter
 /processor:OgmoTileMapProcessor
@@ -76,6 +86,11 @@
 /importer:OgmoTileMapImporter
 /processor:OgmoTileMapProcessor
 /build:Maps/Level_Red_Room.json
+
+#begin Maps/Secret_Room.json
+/importer:OgmoTileMapImporter
+/processor:OgmoTileMapProcessor
+/build:Maps/Secret_Room.json
 
 #begin Maps/TileMap.ogmo
 /importer:OgmoImporter
