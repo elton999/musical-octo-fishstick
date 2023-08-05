@@ -17,6 +17,7 @@ namespace Project
         private int _currentLevel = 1;
         private int _maxLevel = 9;
         private bool _loadScene = false;
+        private string _sceneNameToLoad;
 
         public Game1()
         {
@@ -67,16 +68,18 @@ namespace Project
             KeyBoardHandler.AddInput(Keys.Down);
             KeyBoardHandler.AddInput(Keys.Z);
 
-            LoadScene();
+            LoadSceneOnUpdate();
 
             Player.OnDieDaley += ReloadLevel;
             Gameplay.Door.OnEnterDoorDelay += LoadNextLevel;
+            Gameplay.RedDoor.OnEnterOnRedDoor += LoadScene;
         }
 
         protected override void UnloadContent()
         {
-            Player.OnDieDaley += ReloadLevel;
-            Gameplay.Door.OnEnterDoorDelay += LoadNextLevel;
+            Player.OnDieDaley -= ReloadLevel;
+            Gameplay.Door.OnEnterDoorDelay -= LoadNextLevel;
+            Gameplay.RedDoor.OnEnterOnRedDoor -= LoadScene;
 
             base.UnloadContent();
         }
@@ -91,9 +94,15 @@ namespace Project
             if (_currentLevel > _maxLevel) _currentLevel = 1;
         }
 
+        public void LoadScene(string sceneName)
+        {
+            _sceneNameToLoad = sceneName;
+            _loadScene = true;
+        }
+
         public void UpdateScene()
         {
-            LoadScene();
+            LoadSceneOnUpdate();
             _loadScene = false;
         }
 
@@ -103,7 +112,7 @@ namespace Project
             scene.Dispose();
         }
 
-        public void LoadScene()
+        public void LoadSceneOnUpdate()
         {
             var scene = _gameManagement.SceneManagement.MainScene;
             LoadLevel(scene);
@@ -112,9 +121,15 @@ namespace Project
         public void LoadLevel(Scene scene)
         {
             scene.Dispose();
-            scene.SetLevel(_currentLevel);
+
+            if (_sceneNameToLoad == null)
+                scene.SetLevel(_currentLevel);
+            if (_sceneNameToLoad != null)
+                scene.SetLevel($"Maps/{_sceneNameToLoad}");
+
             scene.SetBackgroundColor = Color.Black;
             scene.Camera.Position = scene.Sizes.ToVector2() / 2f;
+            _sceneNameToLoad = null;
         }
 
         protected override void Update(GameTime gameTime)

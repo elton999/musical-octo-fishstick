@@ -15,7 +15,7 @@ namespace Project.Gameplay
         [ShowEditor] protected virtual Point _openedDoorSprite => new Point(17, 64);
 
         public virtual bool CanOpenDoor => !HasKeys || HasKeys && Player.CollectedKey;
-        public virtual bool CanShowOpenedDoor => !HasKeys || HasKeys && Player.CollectedKey && _playerIsOnDoor;
+        public virtual bool CanShowOpenedDoor => !HasKeys || HasKeys && Player.CollectedKey;
 
         public static event Action OnEnterDoor;
         public static event Action OnEnterDoorDelay;
@@ -36,9 +36,7 @@ namespace Project.Gameplay
 
         public void CheckPlayer()
         {
-            if (_playerIsOnDoor) return;
-
-            if (!CanOpenDoor) return;
+            if (_playerIsOnDoor || !CanOpenDoor) return;
 
             if (!overlapCheck(Scene.Players[0].GetActor())) return;
 
@@ -48,19 +46,17 @@ namespace Project.Gameplay
 
         public virtual IEnumerator OpenDoorDelay()
         {
-            OnEnterDoor();
+            OnEnter();
             yield return CoroutineManagement.Wait(1000.0f);
             OnEnterDoorDelay?.Invoke();
             yield return null;
         }
 
-
         public void SetDoorSprite()
         {
             Body = new Rectangle(_closedDoorSprite, size);
-
-            if (CanShowOpenedDoor)
-                Body = new Rectangle(_openedDoorSprite, size);
+            if (!CanShowOpenedDoor) return;
+            Body = new Rectangle(_openedDoorSprite, size);
         }
 
         public override void Update(GameTime gameTime)

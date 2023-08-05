@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UmbrellaToolsKit;
 using Project.Entities;
 using Microsoft.Xna.Framework;
@@ -14,6 +15,8 @@ namespace Project.Gameplay
         public override bool CanOpenDoor => !_needKey || Player.CollectedRedKey;
         public override bool CanShowOpenedDoor => !_needKey || _needKey && Player.CollectedRedKey && _playerIsOnDoor;
 
+        public static event Action<string> OnEnterOnRedDoor;
+
         public override void Start()
         {
             _needKey = bool.Parse(Values["needKey"]);
@@ -25,6 +28,7 @@ namespace Project.Gameplay
             OnEnter();
             yield return CoroutineManagement.Wait(1000.0f);
             Player.CollectedRedKey = false;
+            OnEnterOnRedDoor?.Invoke((string)Values["scene"]);
             yield return null;
         }
 
