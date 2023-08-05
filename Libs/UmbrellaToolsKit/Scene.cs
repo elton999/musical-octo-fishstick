@@ -122,10 +122,15 @@ namespace UmbrellaToolsKit
 
         public void SetLevel(int level)
         {
-            System.Console.WriteLine($"Level: {MapLevelPath + level}");
+            SetLevel(MapLevelPath + level);
+        }
+
+        public void SetLevel(string level)
+        {
+            Console.WriteLine($"Level: {MapLevelPath + level}");
             CreateCamera();
 
-            Ogmo.TileMap tileMap = Content.Load<Ogmo.TileMap>(MapLevelPath + level);
+            Ogmo.TileMap tileMap = Content.Load<Ogmo.TileMap>(level);
 
             Texture2D _tilemapSprite = Content.Load<Texture2D>(TileMapPath);
 
@@ -133,12 +138,12 @@ namespace UmbrellaToolsKit
             CreateBackBuffer();
 
             LevelReady = true;
-            System.Console.WriteLine("\nDone");
+            Console.WriteLine("\nDone");
         }
 
         public void SetLevelLdtk(int level)
         {
-            System.Console.WriteLine($"Level: {MapLevelLdtkPath}");
+            Console.WriteLine($"Level: {MapLevelLdtkPath}");
             Texture2D _tilemapSprite = Content.Load<Texture2D>(TileMapPath);
 
             var tileMap = Content.Load<ldtk.LdtkJson>(MapLevelLdtkPath);
