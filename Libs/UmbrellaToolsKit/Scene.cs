@@ -41,12 +41,14 @@ namespace UmbrellaToolsKit
 
         public void addLayers()
         {
-            SortLayers = new List<List<GameObject>>();
-            SortLayers.Add(Foreground);
-            SortLayers.Add(Players);
-            SortLayers.Add(Enemies);
-            SortLayers.Add(Middleground);
-            SortLayers.Add(Backgrounds);
+            SortLayers = new List<List<GameObject>>
+            {
+                Foreground,
+                Players,
+                Enemies,
+                Middleground,
+                Backgrounds
+            };
         }
 
         public void AddGameObject(GameObject gameObject, Layers layer = Layers.MIDDLEGROUND)
@@ -120,10 +122,7 @@ namespace UmbrellaToolsKit
 
         public Vector2 LevelSize;
 
-        public void SetLevel(int level)
-        {
-            SetLevel(MapLevelPath + level);
-        }
+        public void SetLevel(int level) => SetLevel(MapLevelPath + level);
 
         public void SetLevel(string level)
         {
