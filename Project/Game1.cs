@@ -15,7 +15,7 @@ namespace Project
         private GameManagement _gameManagement;
 
         private int _currentLevel = 1;
-        private int _maxLevel = 9;
+        private int _maxLevel = 11;
         private bool _loadScene = false;
         private string _sceneNameToLoad;
 
